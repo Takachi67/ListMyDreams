@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
+})->name('/');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('wishlists', WishlistController::class);
 });
+
+require __DIR__.'/auth.php';
