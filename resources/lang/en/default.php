@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'an_error_occured' => 'An error occured, please contact the website administrator.',
+    'close' => 'Close',
     'create_list' => 'Create a list',
     'free_message' => 'List My Dreams is and will remain free for life, enjoy it!',
     'free_title' => 'Free',

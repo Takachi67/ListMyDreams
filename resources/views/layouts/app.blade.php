@@ -17,6 +17,9 @@
                     myFriends: '{{ __('buttons.my_friends') }}',
                     myLists: '{{ __('buttons.my_lists') }}'
                 },
+                default: {
+                    close: '{{ __('default.close') }}'
+                },
                 items: {
                     add: '{{ __('items.add') }}',
                     border_color: '{{ __('items.border_color') }}',
@@ -36,12 +39,49 @@
                         high: '{{ __('items.priorities.high') }}',
                         ultra: '{{ __('items.priorities.ultra') }}'
                     },
-                    text_color: '{{ __('items.text_color') }}'
+                    reserve: '{{ __('items.reserve') }}',
+                    success: '{{ __('items.success') }}',
+                    successfully_reserved: '{{ __('items.successfully_reserved') }}',
+                    successfully_unreserved: '{{ __('items.successfully_unreserved') }}',
+                    text_color: '{{ __('items.text_color') }}',
+                    unreserve: '{{ __('items.unreserve') }}'
+                },
+                wishlists: {
+                    category: '{{ __('wishlists.category') }}',
+                    categories: {
+                        anniversary: '{{ __('wishlists.categories.anniversary') }}',
+                        wedding: '{{ __('wishlists.categories.wedding') }}',
+                        christmas: '{{ __('wishlists.categories.christmas') }}',
+                        birth: '{{ __('wishlists.categories.birth') }}',
+                        communion: '{{ __('wishlists.categories.communion') }}',
+                        easter: '{{ __('wishlists.categories.easter') }}',
+                        other: '{{ __('wishlists.categories.other') }}'
+                    },
+                    create_buttons: {
+                        no: '{{ __('wishlists.create_buttons.no') }}',
+                        yes: '{{ __('wishlists.create_buttons.yes') }}'
+                    },
+                    create_question: '{{ __('wishlists.create_question') }}',
+                    expiration_date: '{{ __('wishlists.expiration_date') }}',
+                    modify: '{{ __('wishlists.modify') }}',
+                    name: '{{ __('wishlists.name') }}',
+                    share: '{{ __('wishlists.share') }}',
+                    sharing_type: '{{ __('wishlists.sharing_type') }}',
+                    sharing_types: {
+                        friends: '{{ __('wishlists.sharing_types.friends') }}',
+                        selection: '{{ __('wishlists.sharing_types.selection') }}'
+                    }
                 }
             }
 
             window.routes = {
-                home: '{{ route('/') }}'
+                home: '{{ route('/') }}',
+                wishlist: {
+                    index: '{{ route('wishlists.index') }}',
+                    reserve: '{{ route('wishlists.reserve') }}',
+                    store: '{{ route('wishlists.store') }}',
+                    unreserve: '{{ route('wishlists.unreserve') }}'
+                }
             }
         </script>
 

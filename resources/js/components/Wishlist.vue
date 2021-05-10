@@ -2,7 +2,7 @@
     <transition name="modal">
         <div class="modal-mask" @click="closeModal" v-show="showModal">
             <div class="modal-wrapper">
-                <div class="modal-container" @click.stop>
+                <div class="modal-container md:w-1/2" @click.stop>
                     <div class="modal-header">
                         <slot name="header">
                             <h4 class="text-3xl">{{ openedItem.name }}</h4>
@@ -10,88 +10,41 @@
                     </div>
                     <div class="modal-body">
                         <slot name="body">
-                            <p>{{ translations.items.link }}: {{ openedItem.link }}</p>
-                            <p>{{ translations.items.priority }}: {{ he.decode(translations.items.priorities[openedItem.priority]) }}</p>
-                            <p>{{ translations.items.comment }}: {{ openedItem.comment }}</p>
+                            <p class="break-all text-xl"><b>{{ translations.items.link }}</b>: <a class="text-blue-600 underline" target="_blank" :href="openedItem.link">{{ openedItem.link }}</a></p>
+                            <p class="text-xl"><b>{{ translations.items.priority }}</b>: {{ he.decode(translations.items.priorities[openedItem.priority]) }}</p>
+                            <p class="text-xl"><b>{{ translations.items.comment }}</b>: {{ openedItem.comment }}</p>
                         </slot>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer flex justify-between">
                         <slot name="footer">
-                            <button class="btn btn-primary" @click="closeModal">
-                                OK
-                            </button>
+                            <button class="btn btn-primary" @click="closeModal">{{ translations.default.close }}</button>
+                            <button class="btn btn-secondary" @click="unreserve(openedItem.id)" v-if="openedItem.is_reserved && openedItem.reserved_user_id === user.id">{{ translations.items.unreserve }}</button>
+                            <button class="btn btn-tertiary" @click="reserve(openedItem.id)" v-if="!openedItem.is_reserved">{{ translations.items.reserve }}</button>
                         </slot>
                     </div>
                 </div>
             </div>
         </div>
     </transition>
-    <div class="grid md:grid-cols-3 mt-6 mb-6 ml-20 mr-20 relative">
-        <ul class="paper md:col-span-2" :style="{ '--color': wishlist.border_color }">
-            <li v-for="item in wishlist.items" @click="openModal(item)" :style="{ borderBottom: '1px dotted ' + wishlist.line_color, color: wishlist.text_color }">
+    <div class="mt-6 mb-6 ml-10 mr-10 md:ml-20 md:mr-20 relative">
+        <ul class="paper" :style="{ '--color': wishlist.border_color }">
+            <li class="item" @click="openModal(item)" v-for="item in wishlist.items" :style="{ borderBottom: '1px dotted ' + wishlist.line_color, color: wishlist.text_color }">
                 {{ item.name }}
+                <i class="float-right mr-2 text-green-600" v-if="item.is_reserved" v-html="checkIcon"></i>
+                <i class="float-right mr-2 text-red-600" v-else v-html="clockIcon"></i>
             </li>
             <li v-for="i in [...Array(10 - wishlist.items.length).keys()]" :style="{ borderBottom: '1px dotted ' + wishlist.line_color, color: wishlist.text_color }"></li>
         </ul>
-        <div>
-            <h2 class="text-4xl">{{ translations.items.newItem }}</h2>
-            <div class="mt-6 flex items-center">
-                <label for="name" class="w-1/3 text-xl">{{ translations.items.name }}</label>
-                <input type="text" v-model="newItem.name" class="col-span-2 w-2/3 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" id="name" :placeholder="translations.items.name">
-            </div>
-            <div class="mt-6 flex items-center">
-                <label for="link" class="w-1/3 text-xl">{{ translations.items.link }}</label>
-                <input type="text" v-model="newItem.link" class="col-span-2 w-2/3 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" id="link" :placeholder="translations.items.link">
-            </div>
-            <div class="mt-6 flex items-center">
-                <label for="priority" class="w-1/3 text-xl">{{ translations.items.priority }}</label>
-                <select name="priority" v-model="newItem.priority" id="priority" class="col-span-2 w-2/3 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                    <option value="low">{{ translations.items.priorities.low }}</option>
-                    <option value="medium">{{ translations.items.priorities.medium }}</option>
-                    <option value="high">{{ translations.items.priorities.high }}</option>
-                    <option value="ultra">{{ he.decode(translations.items.priorities.ultra) }}</option>
-                </select>
-            </div>
-            <div class="mt-6 flex items-center">
-                <label for="comment" class="w-1/3 text-xl">{{ translations.items.comment }}</label>
-                <textarea name="comment" v-model="newItem.comment" id="comment" class="max-h-36 col-span-2 w-2/3 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" :placeholder="translations.items.comment"></textarea>
-            </div>
-            <button class="btn-primary float-right mt-6" @click="addItem">{{ translations.items.add }}</button>
-        </div>
-    </div>
-    <div class="ml-20 mr-20">
-        <h2 class="text-4xl">{{ translations.items.customization }}</h2>
-        <div class="flex justify-between w-full mt-5">
-            <div class="flex flex-col items-center">
-                <label class="text-2xl">{{ translations.items.border_color }}</label>
-                <div @click="openPicker('border-picker')" class="w-32 h-32 rounded-full flex justify-center items-center" :style="{ backgroundColor: wishlist.border_color }">
-                    <input type="color" id="border-picker" class="invisible" v-model="wishlist.border_color">
-                </div>
-            </div>
-            <div class="flex flex-col items-center">
-                <label class="text-2xl">{{ translations.items.text_color }}</label>
-                <div @click="openPicker('text-picker')" class="w-32 h-32 rounded-full flex justify-center items-center" :style="{ backgroundColor: wishlist.text_color }">
-                    <input type="color" id="text-picker" class="invisible" v-model="wishlist.text_color">
-                </div>
-            </div>
-            <div class="flex flex-col items-center">
-                <label class="text-2xl">{{ translations.items.line_color }}</label>
-                <div @click="openPicker('line-picker')" class="w-32 h-32 rounded-full flex justify-center items-center" :style="{ backgroundColor: wishlist.line_color }">
-                    <input type="color" id="line-picker" class="invisible" v-model="wishlist.line_color">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="w-full flex justify-center mt-20 mb-10">
-        <button class="btn btn-primary">{{ translations.items.create_list }}</button>
     </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import Item from '../models/Item'
 import Wishlist from '../models/Wishlist'
-import Swal from 'sweetalert2'
+import feather from 'feather-icons'
+import axios from 'axios'
+import Swal from "sweetalert2";
 
 export default {
     name: 'Wishlist',
@@ -99,29 +52,27 @@ export default {
         defaultWishlist: {
             type: Wishlist,
             default: new Wishlist()
+        },
+        user: {
+            type: Object,
+            default: {}
         }
     },
     setup(props) {
         let wishlist = ref(props.defaultWishlist),
             translations = window.translations,
+            routes = window.routes,
             he = window.he,
-            newItem = ref(new Item()),
             showModal = ref(false),
             openedItem = ref(new Item())
 
-        function addItem() {
-            if (!newItem.value.name || !newItem.value.link || !newItem.value.priority || !newItem.value.comment) {
-                Swal.fire({
-                    title: translations.items.error,
-                    text: he.decode(translations.items.missing_properties),
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                })
-            } else {
-                wishlist.value.items.push(newItem.value)
-                newItem.value = new Item()
-            }
-        }
+        const clockIcon = computed(() => {
+            return feather.icons['clock'].toSvg()
+        })
+
+        const checkIcon = computed(() => {
+            return feather.icons['check-circle'].toSvg()
+        })
 
         function openModal(item) {
             openedItem.value = item
@@ -129,25 +80,71 @@ export default {
         }
 
         function closeModal() {
-            openedItem.value = new Item()
             showModal.value = false
         }
 
-        function openPicker(id) {
-            document.getElementById(id).click()
+        function reserve(id) {
+            axios.post(routes.wishlist.reserve, {
+                id: id
+            }).then((response) => {
+                let index = wishlist.value.items.findIndex(item => item.id === response.data.id)
+                if (index !== -1) {
+                    wishlist.value.items[index] = new Item(response.data)
+                    closeModal()
+                    Swal.fire({
+                        title: translations.items.success,
+                        text: translations.items.successfully_reserved.replace(':item:', wishlist.value.items[index].name),
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    })
+                }
+            }).catch((error) => {
+                closeModal()
+                Swal.fire({
+                    text: error.response.data.message,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
+            })
+        }
+
+        function unreserve(id) {
+            axios.post(routes.wishlist.unreserve, {
+                id: id
+            }).then((response) => {
+                let index = wishlist.value.items.findIndex(item => item.id === response.data.id)
+                if (index !== -1) {
+                    wishlist.value.items[index] = new Item(response.data)
+                    closeModal()
+                    Swal.fire({
+                        title: translations.items.success,
+                        text: translations.items.successfully_unreserved.replace(':item:', wishlist.value.items[index].name),
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    })
+                }
+            }).catch((error) => {
+                closeModal()
+                Swal.fire({
+                    text: error.response.data.message,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
+            })
         }
 
         return {
             wishlist,
             translations,
             he,
-            newItem,
             showModal,
             openedItem,
-            addItem,
+            clockIcon,
+            checkIcon,
             openModal,
             closeModal,
-            openPicker
+            reserve,
+            unreserve
         }
     }
 }
@@ -161,15 +158,16 @@ export default {
     color: #555;
     font-size: 20px;
     padding: 0;
-    width: 96%;
     min-height: 500px;
     background-image: url('/img/paper.png');
     background-position: initial;
     background-repeat: initial;
     box-shadow: 0 0 5px rgba(0,0,0,0.2), inset 0 0 50px rgba(0,0,0,0.1);
 }
-.paper li {
+.paper .item {
     cursor: pointer;
+}
+.paper li {
     list-style: none;
     padding: 10px 10px 10px 55px;
     height: 50px;
@@ -188,7 +186,7 @@ export default {
     left: auto;
     right: 12px;
 }
-.paper li:hover {
+.paper .item:hover {
     background-color: rgba(255,255,255,0.3);
 }
 
@@ -210,7 +208,6 @@ export default {
 }
 
 .modal-container {
-    width: 300px;
     margin: 0px auto;
     padding: 20px 30px;
     background-color: #fff;

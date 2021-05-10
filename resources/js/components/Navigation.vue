@@ -4,7 +4,7 @@
             <img src="/img/logo.png" alt="Logo" class="h-1/2">
             <div class="h-full flex items-center">
                 <a class="flex items-center pl-14 pr-14 h-full hover:bg-blue-50" :href="routes.home">{{ translations.buttons.home }}</a>
-                <a class="flex items-center pl-14 pr-14 h-full hover:bg-blue-50" href="">{{ translations.buttons.myLists }}</a>
+                <a class="flex items-center pl-14 pr-14 h-full hover:bg-blue-50" :href="routes.wishlist.index">{{ translations.buttons.myLists }}</a>
                 <a class="flex items-center pl-14 pr-14 h-full hover:bg-blue-50" href="">{{ translations.buttons.myFriends }}</a>
             </div>
             <div class="w-16 h-16 hover:bg-blue-50 border border-blue-100 flex justify-center items-center cursor-pointer">

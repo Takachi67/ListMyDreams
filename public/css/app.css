@@ -32205,6 +32205,36 @@ select {
   border-radius: 10px;
 }
 
+.btn-secondary {
+  background: #ffd8ad;
+  border: 2px solid #aa671d;
+  color: black;
+  padding: 7px 20px;
+  border-radius: 10px;
+}
+
+.btn-tertiary {
+  background: #bfd7b4;
+  border: 2px solid #3b682b;
+  color: black;
+  padding: 7px 20px;
+  border-radius: 10px;
+}
+
+.custom-btn-primary {
+  background: #75a9f9;
+  border: 2px solid #1464f6;
+  color: white;
+  border-radius: 10px;
+}
+
+.custom-btn-secondary {
+  background: #ffd8ad;
+  border: 2px solid #aa671d;
+  color: black;
+  border-radius: 10px;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

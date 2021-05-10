@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('wishlists', WishlistController::class);
+    Route::post('wishlists.reserve', [WishlistController::class, 'reserve'])->name('wishlists.reserve');
+    Route::post('wishlists.unreserve', [WishlistController::class, 'unreserve'])->name('wishlists.unreserve');
 });
 
 require __DIR__.'/auth.php';
