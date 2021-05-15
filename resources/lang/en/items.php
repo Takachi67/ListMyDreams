@@ -6,7 +6,6 @@ return [
     'already_unreserved' => ':item: has already been unreserved !',
     'border_color' => 'Border color',
     'comment' => 'Comment',
-    'create_list' => 'Create list',
     'customization' => 'Customization',
     'error' => 'Error',
     'line_color' => 'Line color',
@@ -21,10 +20,12 @@ return [
         'high' => 'I need it',
         'ultra' => 'I can\'t leave without it'
     ],
+    'remove_from_list' => 'Remove from list',
     'reserve' => 'Reserve',
     'success' => 'Success',
     'successfully_reserved' => 'You successfully reserved :item: in the list !',
     'successfully_unreserved' => 'You successfully unreserved :item: in the list !',
     'text_color' => 'Text color',
+    'too_late' => 'Too late',
     'unreserve' => 'Unreserve'
 ];

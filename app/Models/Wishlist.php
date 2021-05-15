@@ -25,4 +25,12 @@ class Wishlist extends Model
     {
         return $this->hasMany(Item::class, 'list_id', 'id');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class, 'list_id', 'id');
+    }
 }

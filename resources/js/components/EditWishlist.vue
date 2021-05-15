@@ -12,24 +12,29 @@
                         <slot name="body">
                             <p>{{ translations.items.link }}: {{ openedItem.link }}</p>
                             <p>{{ translations.items.priority }}: {{ he.decode(translations.items.priorities[openedItem.priority]) }}</p>
-                            <p>{{ translations.items.comment }}: {{ openedItem.comment }}</p>
+                            <p v-if="openedItem.comment">{{ translations.items.comment }}: {{ openedItem.comment }}</p>
                         </slot>
                     </div>
                     <div class="modal-footer">
                         <slot name="footer">
-                            <button class="btn btn-primary" @click="closeModal">
-                                OK
-                            </button>
+                            <button class="btn btn-primary" @click="closeModal">OK</button>
                         </slot>
                     </div>
                 </div>
             </div>
         </div>
     </transition>
+    <p class="text-red-700 ml-10 md:ml-20 mt-6 flex items-center" v-if="wishlist.status === 'published'">
+        <i v-html="infoIcon"></i>
+        <span class="mt-1 ml-3">{{ he.decode(translations.wishlists.published_message) }}</span>
+    </p>
     <div class="grid grid-cols-1 md:grid-cols-3 mt-6 mb-6 ml-10 mr-10 md:ml-20 md:mr-20 relative">
         <ul class="paper w-full md:w-11/12 md:col-span-2" :style="{ '--color': wishlist.border_color }">
-            <li class="item" v-for="item in wishlist.items" @click="openModal(item)" :style="{ borderBottom: '1px dotted ' + wishlist.line_color, color: wishlist.text_color }">
+            <li class="item flex justify-between cursor-pointer" v-for="item in wishlist.items" @click="openModal(item)" :style="{ borderBottom: '1px dotted ' + wishlist.line_color, color: wishlist.text_color }">
                 {{ item.name }}
+                <button v-on:click.stop @click="removeItem(item)" class="bg-red-300 flex justify-center items-center text-sm rounded-full p-2" v-if="!item.id || (item.id && wishlist.status !== 'published')">
+                    <i v-html="trashIcon"></i>
+                </button>
             </li>
             <li v-for="i in [...Array(10 - wishlist.items.length).keys()]" :style="{ borderBottom: '1px dotted ' + wishlist.line_color, color: wishlist.text_color }"></li>
         </ul>
@@ -102,16 +107,18 @@
         </div>
     </div>
     <div class="w-full flex justify-center mt-10 mb-10">
-        <button class="btn btn-primary" @click="create">{{ translations.items.create_list }}</button>
+        <button v-if="wishlist.id" class="btn btn-primary" @click="update">{{ translations.wishlists.update_list }}</button>
+        <button v-else class="btn btn-primary" @click="create">{{ translations.wishlists.create_list }}</button>
     </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import {computed, ref} from 'vue'
 import Item from '../models/Item'
 import Wishlist from '../models/Wishlist'
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import feather from 'feather-icons'
 
 export default {
     name: 'EditWishlist',
@@ -129,6 +136,12 @@ export default {
             newItem = ref(new Item()),
             showModal = ref(false),
             openedItem = ref(new Item())
+
+        const trashIcon = computed(() => {
+            return feather.icons['trash-2'].toSvg()
+        }), infoIcon = computed(() => {
+            return feather.icons['info'].toSvg()
+        })
 
         function addItem() {
             if (!newItem.value.name || !newItem.value.link || !newItem.value.priority) {
@@ -188,6 +201,43 @@ export default {
             })
         }
 
+        function update() {
+            Swal.fire({
+                title: translations.wishlists.update_question,
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: translations.wishlists.create_buttons.yes,
+                denyButtonText: translations.wishlists.create_buttons.no
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post(routes.wishlist.update, wishlist.value).then((response) => {
+                        window.location = routes.wishlist.index
+                    }).catch((error) => {
+                        let message
+
+                        if (error.response.status === 422) {
+                            message = error.response.data[0]
+                        } else {
+                            message = error.response.data.message
+                        }
+
+                        Swal.fire({
+                            text: message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        })
+                    })
+                }
+            })
+        }
+
+        function removeItem(item) {
+            let index = wishlist.value.items.findIndex(data => data.id === item.id)
+
+            if (index !== -1)
+                wishlist.value.items.splice(index, 1)
+        }
+
         return {
             wishlist,
             translations,
@@ -195,11 +245,15 @@ export default {
             newItem,
             showModal,
             openedItem,
+            trashIcon,
+            infoIcon,
             addItem,
             openModal,
             closeModal,
             openPicker,
-            create
+            create,
+            update,
+            removeItem
         }
     }
 }
@@ -218,9 +272,6 @@ export default {
     background-position: initial;
     background-repeat: initial;
     box-shadow: 0 0 5px rgba(0,0,0,0.2), inset 0 0 50px rgba(0,0,0,0.1);
-}
-.paper .item {
-    cursor: pointer;
 }
 .paper li {
     list-style: none;

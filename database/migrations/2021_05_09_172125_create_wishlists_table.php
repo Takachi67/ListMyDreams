@@ -19,6 +19,7 @@ class CreateWishlistsTable extends Migration
             $table->string('name');
             $table->string('category');
             $table->string('sharing_type');
+            $table->string('status')->default('created');
             $table->string('border_color');
             $table->string('text_color');
             $table->string('line_color');

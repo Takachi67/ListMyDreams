@@ -9,7 +9,15 @@
         <wishlist
             :default-wishlist="{{ json_encode($wishlist) }}"
             :user="{{ json_encode(auth()->user()) }}"
+            :can-edit="{{ $canEdit }}"
         ></wishlist>
+        @if($canEdit)
+            <messenger
+                :list="{{ json_encode($wishlist) }}"
+                :user="{{ json_encode(auth()->user()) }}"
+                :default-messages="{{ json_encode($wishlist->messages) }}"
+            ></messenger>
+        @endif
     </div>
 
 @endsection

@@ -14,6 +14,7 @@
             @foreach($lists as $list)
                 <list-view
                     :default-wishlist="{{ json_encode($list) }}"
+                    :friends="{{ json_encode($friends) }}"
                 ></list-view>
             @endforeach
         </div>

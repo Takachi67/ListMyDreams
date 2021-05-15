@@ -38,6 +38,7 @@ class WishlistRequest extends FormRequest
                 'other'
             ])],
             'expire_at' => ['nullable', 'date_format:Y-m-d H:i:s'],
+            'id' => ['nullable'], // TODO: Vérifier que l'id existe dans la BDD
             'items' => ['required', 'array', 'min:1'],
             'items.comment' => ['required', 'string'],
             'items.link' => ['required', 'string'],

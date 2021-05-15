@@ -12,6 +12,9 @@
 
         <script>
             window.translations = {
+                auth: {
+                    login: '{{ __('auth.login') }}'
+                },
                 buttons: {
                     home: '{{ __('buttons.home') }}',
                     myFriends: '{{ __('buttons.my_friends') }}',
@@ -19,6 +22,17 @@
                 },
                 default: {
                     close: '{{ __('default.close') }}'
+                },
+                friends: {
+                    accept: '{{ __('friends.accept') }}',
+                    decline: '{{ __('friends.decline') }}',
+                    new_request: '{{ __('friends.new_request') }}',
+                    pending_requests: '{{ __('friends.pending_requests') }}',
+                    remove_question: '{{ __('friends.remove_question') }}',
+                    requests: '{{ __('friends.requests') }}',
+                    request_accepted: '{{ __('friends.request_accepted') }}',
+                    request_declined: '{{ __('friends.request_declined') }}',
+                    send: '{{ __('friends.send') }}'
                 },
                 items: {
                     add: '{{ __('items.add') }}',
@@ -39,12 +53,21 @@
                         high: '{{ __('items.priorities.high') }}',
                         ultra: '{{ __('items.priorities.ultra') }}'
                     },
+                    remove_from_list: '{{ __('items.remove_from_list') }}',
                     reserve: '{{ __('items.reserve') }}',
                     success: '{{ __('items.success') }}',
                     successfully_reserved: '{{ __('items.successfully_reserved') }}',
                     successfully_unreserved: '{{ __('items.successfully_unreserved') }}',
                     text_color: '{{ __('items.text_color') }}',
                     unreserve: '{{ __('items.unreserve') }}'
+                },
+                messenger: {
+                    discussion: '{{ __('messenger.discussion') }}',
+                    send: '{{ __('messenger.send') }}',
+                    your_message: '{{ __('messenger.your_message') }}'
+                },
+                user: {
+                    email: '{{ __('user.email') }}'
                 },
                 wishlists: {
                     category: '{{ __('wishlists.category') }}',
@@ -61,26 +84,50 @@
                         no: '{{ __('wishlists.create_buttons.no') }}',
                         yes: '{{ __('wishlists.create_buttons.yes') }}'
                     },
+                    create_list: '{{ __('wishlists.create_list') }}',
                     create_question: '{{ __('wishlists.create_question') }}',
                     expiration_date: '{{ __('wishlists.expiration_date') }}',
                     modify: '{{ __('wishlists.modify') }}',
                     name: '{{ __('wishlists.name') }}',
+                    open: '{{ __('wishlists.open') }}',
                     share: '{{ __('wishlists.share') }}',
+                    publish: '{{ __('wishlists.publish') }}',
+                    publish_question: '{{ __('wishlists.publish_question') }}',
+                    published_message: '{{ __('wishlists.published_message') }}',
                     sharing_type: '{{ __('wishlists.sharing_type') }}',
                     sharing_types: {
                         friends: '{{ __('wishlists.sharing_types.friends') }}',
-                        selection: '{{ __('wishlists.sharing_types.selection') }}'
-                    }
+                        with_link: '{{ __('wishlists.sharing_types.with_link') }}'
+                    },
+                    publishing_warning: '{{ __('wishlists.publishing_warning') }}',
+                    update_list: '{{ __('wishlists.update_list') }}',
+                    update_question: '{{ __('wishlists.update_question') }}'
                 }
             }
 
             window.routes = {
+                friends: {
+                    index: '{{ route('friends.index') }}',
+                    request: '{{ route('friends.request') }}',
+                    accept: '{{ route('friends.accept') }}',
+                    remove: '{{ route('friends.remove') }}',
+                    decline: '{{ route('friends.decline') }}'
+                },
                 home: '{{ route('/') }}',
+                login: '{{ route('login') }}',
+                logout: '{{ route('logout') }}',
+                messenger: {
+                    send: '{{ route('messenger.send') }}'
+                },
                 wishlist: {
                     index: '{{ route('wishlists.index') }}',
                     reserve: '{{ route('wishlists.reserve') }}',
                     store: '{{ route('wishlists.store') }}',
-                    unreserve: '{{ route('wishlists.unreserve') }}'
+                    update: '{{ route('wishlists.update') }}',
+                    unreserve: '{{ route('wishlists.unreserve') }}',
+                    edit: '{{ route('wishlists.edit', '') }}',
+                    show: '{{ route('wishlists.show', '') }}',
+                    share: '{{ route('wishlists.share') }}'
                 }
             }
         </script>
@@ -90,7 +137,9 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen" id="main">
-            <navigation></navigation>
+            <navigation
+                :user="{{ json_encode(auth()->user()) }}"
+            ></navigation>
 
             <!-- Page Content -->
             <main>
@@ -108,9 +157,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center h-20 ml-24 mr-24">
-                    <p class="text-gray-400">© Copyright 2021</p>
-                </div>
+                <form class="flex items-center h-20 ml-24 mr-24" action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button class="text-gray-400" type="submit">© Copyright 2021</button>
+                </form>
             </footer>
         </div>
     </body>
