@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,11 +22,11 @@ Route::get('/', function () {
     return view('dashboard');
 })->name('/');
 
-Route::get('wishlists/{id}', [WishlistController::class, 'show'])->name('wishlists.show');
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('wishlists', WishlistController::class)->except('edit', 'update', 'show');
+    Route::get('profile', [UserController::class, 'profile'])->name('users.profile');
     Route::get('wishlists/edit/{id}', [WishlistController::class, 'edit'])->name('wishlists.edit');
+    Route::get('wishlists/duplicate/{id}', [WishlistController::class, 'duplicate'])->name('wishlists.duplicate');
     Route::post('wishlists.update', [WishlistController::class, 'update'])->name('wishlists.update');
     Route::resource('friends', FriendController::class);
     Route::post('wishlists.reserve', [WishlistController::class, 'reserve'])->name('wishlists.reserve');
@@ -35,6 +37,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('friends.decline', [FriendController::class, 'decline'])->name('friends.decline');
     Route::post('friends.remove', [FriendController::class, 'remove'])->name('friends.remove');
     Route::post('messenger.send', [MessageController::class, 'send'])->name('messenger.send');
+    Route::post('users.update', [UserController::class, 'update'])->name('users.update');
+    Route::post('notifications.see', [NotificationController::class, 'see'])->name('notifications.see');
 });
+
+Route::get('wishlists/{id}', [WishlistController::class, 'show'])->name('wishlists.show');
 
 require __DIR__.'/auth.php';

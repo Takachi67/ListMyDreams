@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection as NotificationCollection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,6 +14,8 @@ use Multicaret\Acquaintances\Traits\Friendable;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Friendable, Notifiable;
+
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -50,5 +53,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function wishlists(): HasMany
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    /**
+     * @return NotificationCollection|array
+     */
+    public function getNotifications(): NotificationCollection|array
+    {
+        return Notification::query()
+            ->where('user_id', $this->id)
+            ->where('has_seen', false)
+            ->get();
     }
 }

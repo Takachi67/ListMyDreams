@@ -5,12 +5,12 @@
                 <h4 class="text-2xl font-bold">{{ friend.nickname }}</h4>
                 <p>{{ friend.email }}</p>
             </div>
-            <button @click="removeFriend" class="bg-red-300 flex justify-center items-center text-sm rounded-full p-2">
-                <i v-html="trashIcon"></i>
+            <button @click="removeFriend" class="bg-secondary flex justify-center items-center text-sm rounded-full p-2">
+                <i class="text-white" v-html="trashIcon"></i>
             </button>
         </div>
         <div class="w-full border border-blue-100">
-            <div class="flex justify-between items-center h-20 ml-10 mr-10" v-for="wishlist in friend.wishlists">
+            <div class="flex justify-between items-center h-20 ml-4 mr-4 md:ml-10 md:mr-10" v-for="wishlist in friend.wishlists">
                 <img :src="getPicture(wishlist)" alt="List picture" class="h-16">
                 <h2>{{ wishlist.name }}</h2>
                 <a :href="routes.wishlist.show + '/' + wishlist.id" class="btn btn-primary">{{ translations.wishlists.open }}</a>

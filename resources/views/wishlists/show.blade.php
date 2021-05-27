@@ -9,7 +9,7 @@
         <wishlist
             :default-wishlist="{{ json_encode($wishlist) }}"
             :user="{{ json_encode(auth()->user()) }}"
-            :can-edit="{{ $canEdit }}"
+            :can-edit="{{ $canEdit ? 'true' : 'false' }}"
         ></wishlist>
         @if($canEdit)
             <messenger

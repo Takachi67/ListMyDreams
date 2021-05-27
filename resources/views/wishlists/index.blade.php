@@ -10,7 +10,7 @@
             <a href="{{ route('wishlists.create') }}" class="btn custom-btn-primary pl-16 pr-16 pt-3 pb-3">{{ __('wishlists.create_a_list') }}</a>
             <div class="w-1/4 border border-b-2 mt-10"></div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 ml-20 mr-20">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 ml-10 md:ml-20 mr-10 md:mr-20">
             @foreach($lists as $list)
                 <list-view
                     :default-wishlist="{{ json_encode($list) }}"

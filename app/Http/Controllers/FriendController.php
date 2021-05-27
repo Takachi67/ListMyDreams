@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -53,6 +54,15 @@ class FriendController extends Controller
         }
 
         Auth::user()->befriend($recipient);
+
+        Notification::query()
+            ->create([
+                'user_id' => $recipient->id,
+                'type' => 'friend_request',
+                'message' => str_replace(':nickname:', Auth::user()->nickname, __('notifications.messages.friend_request')),
+                'has_seen' => false,
+                'link' => route('friends.index')
+            ]);
 
         return Response::json([
             'message' => __('friends.request_sent')

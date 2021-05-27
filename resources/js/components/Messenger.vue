@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-6 mb-6 ml-10 mr-10 md:ml-20 md:mr-20 relative">
+    <div class="mt-6 mb-6 ml-4 mr-4 md:ml-20 md:mr-20 relative">
         <h2 class="text-4xl font-bold">{{ translations.messenger.discussion }}</h2>
         <div class="w-full h-80 overflow-y-auto bg-gray-200 border border-black">
             <div v-for="message in reversedMessages">
@@ -16,8 +16,8 @@
             </div>
         </div>
         <div class="grid grid-cols-10 mt-3">
-            <input type="text" v-on:keyup.enter="send" v-model="message" :placeholder="translations.messenger.your_message" class="col-span-9 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-            <button class="btn btn-primary" @click="send">{{ translations.messenger.send }}</button>
+            <input type="text" v-on:keyup.enter="send" v-model="message" :placeholder="translations.messenger.your_message" class="col-span-7 md:col-span-9 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            <button class="col-span-3 md:col-span-1 btn btn-primary ml-auto" @click="send">{{ translations.messenger.send }}</button>
         </div>
     </div>
 </template>

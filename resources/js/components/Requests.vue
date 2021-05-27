@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="w-full border border-blue-100">
-            <h2 class="text-3xl font-bold ml-10 mt-10 mb-3">{{ translations.friends.pending_requests }}</h2>
+            <h2 class="text-2xl md:text-3xl font-bold ml-3 md:ml-10 mt-3 md:mt-10 mb-3">{{ translations.friends.pending_requests }}</h2>
             <div class="flex justify-between items-center ml-10 mr-10 mb-10 hover:bg-gray-50" v-for="request in requests">
                 <h4 class="text-2xl">{{ request.sender.nickname }}</h4>
                 <div class="flex">
@@ -14,13 +14,13 @@
                     <button class="btn btn-secondary" @click="decline(request)">{{ translations.friends.decline }}</button>
                 </div>
             </div>
-            <div class="m-10">
-                <h2 class="text-3xl font-bold">{{ translations.friends.new_request }}</h2>
+            <div class="m-3 md:m-10">
+                <h2 class="text-xl md:text-3xl font-bold">{{ translations.friends.new_request }}</h2>
                 <div class="mt-3">
                     <label for="email" class="text-xl">{{ translations.user.email }} <span class="text-red-400">*</span></label>
                     <div class="grid grid-cols-10">
-                        <input type="text" v-on:keyup.enter="send" v-model="email" class="col-span-9 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" id="email" :placeholder="translations.user.email">
-                        <button class="btn btn-primary ml-auto" @click="send">{{ translations.friends.send }}</button>
+                        <input type="text" v-on:keyup.enter="send" v-model="email" class="col-span-7 md:col-span-9 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" id="email" :placeholder="translations.user.email">
+                        <button class="col-span-3 md:col-span-1 btn btn-primary ml-auto" @click="send">{{ translations.friends.send }}</button>
                     </div>
                 </div>
             </div>

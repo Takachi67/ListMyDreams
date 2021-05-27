@@ -14,7 +14,8 @@ module.exports = {
     theme: {
         extend: {
             backgroundColor: theme => ({
-                'title': '#e3e7ec'
+                'title': '#e3e7ec',
+                'secondary': '#e3925a'
             }),
             textColor: theme => ({
                 'title': '#3b4754',

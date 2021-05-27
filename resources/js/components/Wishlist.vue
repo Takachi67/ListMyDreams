@@ -12,21 +12,25 @@
                         <slot name="body">
                             <p class="break-all text-xl"><b>{{ translations.items.link }}</b>: <a class="text-blue-600 underline" target="_blank" :href="openedItem.link">{{ openedItem.link }}</a></p>
                             <p class="text-xl"><b>{{ translations.items.priority }}</b>: {{ he.decode(translations.items.priorities[openedItem.priority]) }}</p>
-                            <p class="text-xl"><b>{{ translations.items.comment }}</b>: {{ openedItem.comment }}</p>
+                            <p class="text-xl" v-if="openedItem.comment"><b>{{ translations.items.comment }}</b>: {{ openedItem.comment }}</p>
                         </slot>
                     </div>
                     <div class="modal-footer flex justify-between">
                         <slot name="footer">
                             <button class="btn btn-primary" @click="closeModal">{{ translations.default.close }}</button>
-                            <button class="btn btn-secondary" @click="unreserve(openedItem.id)" v-if="openedItem.is_reserved && canEdit && user && openedItem.reserved_user_id === user.id">{{ translations.items.unreserve }}</button>
-                            <button class="btn btn-tertiary" @click="reserve(openedItem.id)" v-if="!openedItem.is_reserved && canEdit && user">{{ translations.items.reserve }}</button>
+                            <button class="btn btn-secondary" @click="unreserve(openedItem.id)" v-if="wishlist.status !== 'expired' && openedItem.is_reserved && canEdit && user && openedItem.reserved_user_id === user.id">{{ translations.items.unreserve }}</button>
+                            <button class="btn btn-tertiary" @click="reserve(openedItem.id)" v-if="wishlist.status !== 'expired' && !openedItem.is_reserved && canEdit && user">{{ translations.items.reserve }}</button>
                         </slot>
                     </div>
                 </div>
             </div>
         </div>
     </transition>
-    <div class="mt-6 mb-6 ml-10 mr-10 md:ml-20 md:mr-20 relative">
+    <p class="text-red-700 ml-10 md:ml-20 mt-6 flex items-center" v-if="wishlist.status === 'expired'">
+        <i v-html="infoIcon"></i>
+        <span class="mt-1 ml-3">{{ he.decode(translations.wishlists.expired_message) }}</span>
+    </p>
+    <div class="mt-6 mb-6 ml-4 mr-4 md:ml-20 md:mr-20 relative">
         <ul class="paper" :style="{ '--color': wishlist.border_color }">
             <li class="item" @click="openModal(item)" v-for="item in wishlist.items" :style="{ borderBottom: '1px dotted ' + wishlist.line_color, color: wishlist.text_color }">
                 {{ item.name }}
@@ -72,10 +76,10 @@ export default {
 
         const clockIcon = computed(() => {
             return feather.icons['clock'].toSvg()
-        })
-
-        const checkIcon = computed(() => {
+        }), checkIcon = computed(() => {
             return feather.icons['check-circle'].toSvg()
+        }), infoIcon = computed(() => {
+            return feather.icons['info'].toSvg()
         })
 
         function openModal(item) {
@@ -145,6 +149,7 @@ export default {
             openedItem,
             clockIcon,
             checkIcon,
+            infoIcon,
             openModal,
             closeModal,
             reserve,

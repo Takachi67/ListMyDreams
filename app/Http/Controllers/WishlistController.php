@@ -89,11 +89,13 @@ class WishlistController extends Controller
             $data['user_id'] = Auth::user()->getAuthIdentifier();
             $items = $data['items'];
 
+            Log::debug($items);
+
             unset($data['items']);
 
             $wishlist = Wishlist::find($data['id']);
 
-            if ($wishlist->status !== 'published') {
+            if ($wishlist->status === 'created') {
                 Item::where('list_id', $wishlist->id)
                     ->delete();
             }
@@ -103,12 +105,18 @@ class WishlistController extends Controller
             $wishlist->update($data);
 
             foreach ($items as $item) {
-                if (!isset($item['id'])) {
-                    Item::create(array_merge($item, [
+                if ($wishlist->status === 'created' || ($wishlist->status === 'published' && !isset($item['id']))) {
+                    Item::create(array_merge([
+                        'name' => $item['name'],
+                        'link' => $item['link'],
+                        'priority' => $item['priority'],
+                        'comment' => $item['comment'],
+                    ], [
                         'list_id' => $wishlist->id
                     ]));
                 }
             }
+
             DB::commit();
         } catch (ValidationException $e) {
             DB::rollBack();
@@ -121,6 +129,48 @@ class WishlistController extends Controller
         }
 
         return Response::json([]);
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function duplicate(int $id): JsonResponse
+    {
+        DB::beginTransaction();
+        try {
+            $wishlist = Wishlist::query()->find($id);
+
+            if ($wishlist->user_id !== Auth::user()->getAuthIdentifier()) {
+                abort(403);
+            }
+
+            $newWishlist = $wishlist->replicate();
+            $newWishlist->push();
+
+            foreach ($wishlist->items as $item) {
+                $array = $item->toArray();
+                unset($array['id']);
+                $newWishlist->items()->create($array);
+            }
+
+            $newWishlist->status = 'created';
+            $newWishlist->expire_at = null;
+
+            $newWishlist->save();
+
+            DB::commit();
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+            DB::rollBack();
+            return Response::json([
+                'message' => __('default.an_error_occured')
+            ], 500);
+        }
+
+        return Response::json([
+            'id' => $newWishlist->id
+        ]);
     }
 
     /**
@@ -150,18 +200,23 @@ class WishlistController extends Controller
             ->with('items', 'messages', 'messages.user')
             ->find($id);
 
-        if ($wishlist->status !== 'published' && Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
+        if ($wishlist->status !== 'published' && $wishlist->status !== 'expired' && Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
             abort(403);
         }
 
-        if ($wishlist->sharing_type === 'friends' && (Auth::guest() || !Auth::user()->isFriendWith(User::find($wishlist->user_id)))) {
+        if ((Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) && ($wishlist->sharing_type === 'friends' && (Auth::guest() || !Auth::user()->isFriendWith(User::find($wishlist->user_id))))) {
             abort(403);
         }
 
-        $canEdit = $wishlist->sharing_type === 'with_link' &&
-            Auth::user() &&
-            Auth::user()->isFriendWith(User::find($wishlist->user_id)) &&
-            Auth::user()->getAuthIdentifier() !== $wishlist->user_id;
+        $canEdit = false;
+
+        if ($wishlist->sharing_type === 'with_link' && Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
+            $canEdit = true;
+        }
+
+        if ($wishlist->sharing_type === 'friends' && Auth::user() && Auth::user()->isFriendWith(User::find($wishlist->user_id)) && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
+            $canEdit = true;
+        }
 
         return view('wishlists.show', compact('wishlist', 'canEdit'));
     }

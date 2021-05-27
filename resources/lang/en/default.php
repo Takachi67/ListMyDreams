@@ -4,7 +4,7 @@ return [
     'an_error_occured' => 'An error occured, please contact the website administrator.',
     'close' => 'Close',
     'create_list' => 'Create a list',
-    'free_message' => 'List My Dreams is and will remain free for life, enjoy it!',
+    'free_message' => 'Wishu is and will remain free for life, enjoy it!',
     'free_title' => 'Free',
     'key_points' => 'Key points',
     'login_to_share' => 'Log in to share your wish lists and see your friends lists!',
@@ -13,5 +13,5 @@ return [
     'speed_message' => 'Enjoy a quick and easy to use creation and sharing system.',
     'speed_title' => 'Speed',
     'try_yourself' => 'Try it yourself!',
-    'welcome_message' => 'Welcome on List My Dreams'
+    'welcome_message' => 'Welcome on Wishu'
 ];

@@ -18,7 +18,8 @@
                 buttons: {
                     home: '{{ __('buttons.home') }}',
                     myFriends: '{{ __('buttons.my_friends') }}',
-                    myLists: '{{ __('buttons.my_lists') }}'
+                    myLists: '{{ __('buttons.my_lists') }}',
+                    myProfile: '{{ __('buttons.my_profile') }}'
                 },
                 default: {
                     close: '{{ __('default.close') }}'
@@ -66,8 +67,17 @@
                     send: '{{ __('messenger.send') }}',
                     your_message: '{{ __('messenger.your_message') }}'
                 },
+                notifications: {
+                    none: '{{ __('notifications.none') }}'
+                },
                 user: {
-                    email: '{{ __('user.email') }}'
+                    cancel_password: '{{ __('user.cancel_password') }}',
+                    email: '{{ __('user.email') }}',
+                    logout: '{{ __('user.logout') }}',
+                    password: '{{ __('user.password') }}',
+                    password_confirmation: '{{ __('user.password_confirmation') }}',
+                    save: '{{ __('user.save') }}',
+                    update_password: '{{ __('user.update_password') }}',
                 },
                 wishlists: {
                     category: '{{ __('wishlists.category') }}',
@@ -86,7 +96,11 @@
                     },
                     create_list: '{{ __('wishlists.create_list') }}',
                     create_question: '{{ __('wishlists.create_question') }}',
+                    duplicate_list: '{{ __('wishlists.duplicate_list') }}',
+                    duplicate_question: '{{ __('wishlists.duplicate_question') }}',
                     expiration_date: '{{ __('wishlists.expiration_date') }}',
+                    expired_creator_message: '{{ __('wishlists.expired_creator_message') }}',
+                    expired_message: '{{ __('wishlists.expired_message') }}',
                     modify: '{{ __('wishlists.modify') }}',
                     name: '{{ __('wishlists.name') }}',
                     open: '{{ __('wishlists.open') }}',
@@ -106,6 +120,7 @@
             }
 
             window.routes = {
+                baseUrl: '{{ url('/') }}',
                 friends: {
                     index: '{{ route('friends.index') }}',
                     request: '{{ route('friends.request') }}',
@@ -119,11 +134,18 @@
                 messenger: {
                     send: '{{ route('messenger.send') }}'
                 },
+                notifications: {
+                    see: '{{ route('notifications.see') }}'
+                },
+                users: {
+                    profile: '{{ route('users.profile') }}'
+                },
                 wishlist: {
                     index: '{{ route('wishlists.index') }}',
                     reserve: '{{ route('wishlists.reserve') }}',
                     store: '{{ route('wishlists.store') }}',
                     update: '{{ route('wishlists.update') }}',
+                    duplicate: '{{ route('wishlists.duplicate', '') }}',
                     unreserve: '{{ route('wishlists.unreserve') }}',
                     edit: '{{ route('wishlists.edit', '') }}',
                     show: '{{ route('wishlists.show', '') }}',
@@ -139,6 +161,9 @@
         <div class="min-h-screen" id="main">
             <navigation
                 :user="{{ json_encode(auth()->user()) }}"
+                @isset($notifications)
+                :default-notifications="{{ json_encode($notifications) }}"
+                @endisset
             ></navigation>
 
             <!-- Page Content -->
@@ -148,19 +173,20 @@
 
             <footer>
                 <div class="w-full border-b">
-                    <div class="flex justify-between items-center h-32 ml-24 mr-24">
-                        <img src="/img/logo.png" alt="Logo" class="h-1/4">
-                        <div class="flex justify-around w-48">
+                    <div class="flex justify-between items-center h-20 md:h-32 ml-4 mr-4 md:ml-24 md:mr-24">
+                        <a href="{{ route('/') }}" class="h-1/2">
+                            <img src="/img/logo.png" alt="Logo" class="h-full">
+                        </a>
+                        <div class="flex justify-around w-28 md:w-48">
                             <i class="cursor-pointer" data-feather="twitter"></i>
                             <i class="cursor-pointer" data-feather="instagram"></i>
                             <i class="cursor-pointer" data-feather="facebook"></i>
                         </div>
                     </div>
                 </div>
-                <form class="flex items-center h-20 ml-24 mr-24" action="{{ route('logout') }}" method="post">
-                    @csrf
-                    <button class="text-gray-400" type="submit">© Copyright 2021</button>
-                </form>
+                <div class="flex items-center h-10 md:h-20 ml-4 mr-4 md:ml-24 md:mr-24">
+                    <span class="text-gray-400" type="submit">© Copyright 2021</span>
+                </div>
             </footer>
         </div>
     </body>

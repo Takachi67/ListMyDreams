@@ -2724,6 +2724,11 @@ select {
   background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
 }
 
+.bg-secondary {
+  --tw-bg-opacity: 1;
+  background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+}
+
 .group:hover .group-hover\:bg-transparent {
   background-color: transparent;
 }
@@ -3145,6 +3150,11 @@ select {
 .group:hover .group-hover\:bg-title {
   --tw-bg-opacity: 1;
   background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
+}
+
+.group:hover .group-hover\:bg-secondary {
+  --tw-bg-opacity: 1;
+  background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
 }
 
 .focus-within\:bg-transparent:focus-within {
@@ -3570,6 +3580,11 @@ select {
   background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
 }
 
+.focus-within\:bg-secondary:focus-within {
+  --tw-bg-opacity: 1;
+  background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+}
+
 .hover\:bg-transparent:hover {
   background-color: transparent;
 }
@@ -3993,6 +4008,11 @@ select {
   background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
 }
 
+.hover\:bg-secondary:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+}
+
 .focus\:bg-transparent:focus {
   background-color: transparent;
 }
@@ -4414,6 +4434,11 @@ select {
 .focus\:bg-title:focus {
   --tw-bg-opacity: 1;
   background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
+}
+
+.focus\:bg-secondary:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
 }
 
 .bg-none {
@@ -32284,6 +32309,25 @@ select {
   transform: scale(1.1);
 }
 
+.pastille {
+  width: 20px;
+  height: 20px;
+  bottom: -10px;
+  right: -10px;
+}
+
+.pastille-mobile {
+  width: 15px;
+  height: 15px;
+  bottom: -7px;
+  right: -7px;
+}
+
+.bell-mobile .feather-bell {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
@@ -34260,6 +34304,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .sm\:bg-secondary {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .group:hover .sm\:group-hover\:bg-transparent {
     background-color: transparent;
   }
@@ -34681,6 +34730,11 @@ select {
   .group:hover .sm\:group-hover\:bg-title {
     --tw-bg-opacity: 1;
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
+  }
+
+  .group:hover .sm\:group-hover\:bg-secondary {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
   }
 
   .sm\:focus-within\:bg-transparent:focus-within {
@@ -35106,6 +35160,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .sm\:focus-within\:bg-secondary:focus-within {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .sm\:hover\:bg-transparent:hover {
     background-color: transparent;
   }
@@ -35529,6 +35588,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .sm\:hover\:bg-secondary:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .sm\:focus\:bg-transparent:focus {
     background-color: transparent;
   }
@@ -35950,6 +36014,11 @@ select {
   .sm\:focus\:bg-title:focus {
     --tw-bg-opacity: 1;
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
+  }
+
+  .sm\:focus\:bg-secondary:focus {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
   }
 
   .sm\:bg-none {
@@ -65531,6 +65600,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .md\:bg-secondary {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .group:hover .md\:group-hover\:bg-transparent {
     background-color: transparent;
   }
@@ -65952,6 +66026,11 @@ select {
   .group:hover .md\:group-hover\:bg-title {
     --tw-bg-opacity: 1;
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
+  }
+
+  .group:hover .md\:group-hover\:bg-secondary {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
   }
 
   .md\:focus-within\:bg-transparent:focus-within {
@@ -66377,6 +66456,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .md\:focus-within\:bg-secondary:focus-within {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .md\:hover\:bg-transparent:hover {
     background-color: transparent;
   }
@@ -66800,6 +66884,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .md\:hover\:bg-secondary:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .md\:focus\:bg-transparent:focus {
     background-color: transparent;
   }
@@ -67221,6 +67310,11 @@ select {
   .md\:focus\:bg-title:focus {
     --tw-bg-opacity: 1;
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
+  }
+
+  .md\:focus\:bg-secondary:focus {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
   }
 
   .md\:bg-none {
@@ -96802,6 +96896,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .lg\:bg-secondary {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .group:hover .lg\:group-hover\:bg-transparent {
     background-color: transparent;
   }
@@ -97223,6 +97322,11 @@ select {
   .group:hover .lg\:group-hover\:bg-title {
     --tw-bg-opacity: 1;
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
+  }
+
+  .group:hover .lg\:group-hover\:bg-secondary {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
   }
 
   .lg\:focus-within\:bg-transparent:focus-within {
@@ -97648,6 +97752,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .lg\:focus-within\:bg-secondary:focus-within {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .lg\:hover\:bg-transparent:hover {
     background-color: transparent;
   }
@@ -98071,6 +98180,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .lg\:hover\:bg-secondary:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .lg\:focus\:bg-transparent:focus {
     background-color: transparent;
   }
@@ -98492,6 +98606,11 @@ select {
   .lg\:focus\:bg-title:focus {
     --tw-bg-opacity: 1;
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
+  }
+
+  .lg\:focus\:bg-secondary:focus {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
   }
 
   .lg\:bg-none {
@@ -128073,6 +128192,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .xl\:bg-secondary {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .group:hover .xl\:group-hover\:bg-transparent {
     background-color: transparent;
   }
@@ -128494,6 +128618,11 @@ select {
   .group:hover .xl\:group-hover\:bg-title {
     --tw-bg-opacity: 1;
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
+  }
+
+  .group:hover .xl\:group-hover\:bg-secondary {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
   }
 
   .xl\:focus-within\:bg-transparent:focus-within {
@@ -128919,6 +129048,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .xl\:focus-within\:bg-secondary:focus-within {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .xl\:hover\:bg-transparent:hover {
     background-color: transparent;
   }
@@ -129342,6 +129476,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .xl\:hover\:bg-secondary:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .xl\:focus\:bg-transparent:focus {
     background-color: transparent;
   }
@@ -129763,6 +129902,11 @@ select {
   .xl\:focus\:bg-title:focus {
     --tw-bg-opacity: 1;
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
+  }
+
+  .xl\:focus\:bg-secondary:focus {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
   }
 
   .xl\:bg-none {
@@ -159344,6 +159488,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .\32xl\:bg-secondary {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .group:hover .\32xl\:group-hover\:bg-transparent {
     background-color: transparent;
   }
@@ -159765,6 +159914,11 @@ select {
   .group:hover .\32xl\:group-hover\:bg-title {
     --tw-bg-opacity: 1;
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
+  }
+
+  .group:hover .\32xl\:group-hover\:bg-secondary {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
   }
 
   .\32xl\:focus-within\:bg-transparent:focus-within {
@@ -160190,6 +160344,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .\32xl\:focus-within\:bg-secondary:focus-within {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .\32xl\:hover\:bg-transparent:hover {
     background-color: transparent;
   }
@@ -160613,6 +160772,11 @@ select {
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
   }
 
+  .\32xl\:hover\:bg-secondary:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
+  }
+
   .\32xl\:focus\:bg-transparent:focus {
     background-color: transparent;
   }
@@ -161034,6 +161198,11 @@ select {
   .\32xl\:focus\:bg-title:focus {
     --tw-bg-opacity: 1;
     background-color: rgba(227, 231, 236, var(--tw-bg-opacity));
+  }
+
+  .\32xl\:focus\:bg-secondary:focus {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 146, 90, var(--tw-bg-opacity));
   }
 
   .\32xl\:bg-none {

@@ -6,6 +6,7 @@ import ListView from './components/ListView.vue'
 import Friend from './components/Friend.vue'
 import Requests from './components/Requests.vue'
 import Messenger from './components/Messenger.vue'
+import Password from './components/Password.vue'
 
 // @ts-ignore
 window.he = require('he')
@@ -19,6 +20,7 @@ window.onload = () => {
     app.component('Friend', Friend)
     app.component('Requests', Requests)
     app.component('Messenger', Messenger)
+    app.component('Password', Password)
     app.mount('#main')
 
     const feather = require('feather-icons')

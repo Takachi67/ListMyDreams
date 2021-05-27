@@ -4,9 +4,9 @@
             <img :src="getPicture" alt="List picture" class="w-full cursor-pointer">
         </a>
         <h2 class="text-2xl md:text-4xl mt-6 mb-6">{{ defaultWishlist.name }}</h2>
-        <a class="btn custom-btn-secondary pl-16 pr-16 pt-3 pb-3" :href="routes.wishlist.edit + '/' + defaultWishlist.id">{{ translations.wishlists.modify }}</a>
-        <button v-if="wishlist.status === 'created'" class="btn custom-btn-primary mt-6 mb-6 pl-16 pr-16 pt-3 pb-3" @click="share">{{ translations.wishlists.publish }}</button>
-        <button v-if="wishlist.status === 'published'" class="disabled:opacity-50 cursor-default custom-btn-primary mt-6 mb-6 pl-16 pr-16 pt-3 pb-3" disabled>{{ translations.wishlists.publish }}</button>
+        <a class="btn custom-btn-secondary text-center pl-8 pr-8 lg:pl-16 lg:pr-16 pt-3 pb-3" :href="routes.wishlist.edit + '/' + defaultWishlist.id">{{ translations.wishlists.modify }}</a>
+        <button v-if="wishlist.status === 'created'" class="btn custom-btn-primary mt-6 mb-6 pl-8 pr-8 lg:pl-16 lg:pr-16 pt-3 pb-3" @click="share">{{ translations.wishlists.publish }}</button>
+        <button v-if="wishlist.status === 'published' || wishlist.status === 'expired'" class="disabled:opacity-50 cursor-default custom-btn-primary mt-6 mb-6 pl-8 pr-8 lg:pl-16 lg:pr-16 pt-3 pb-3" disabled>{{ translations.wishlists.publish }}</button>
     </div>
 </template>
 
