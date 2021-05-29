@@ -58,6 +58,9 @@ class WishlistController extends Controller
                 ->create($data);
 
             foreach ($items as $item) {
+                if (isset($item['temp_id'])) {
+                    unset($item['temp_id']);
+                }
                 Item::create(array_merge($item, [
                     'list_id' => $wishlist->id
                 ]));
@@ -65,9 +68,11 @@ class WishlistController extends Controller
 
             DB::commit();
         } catch (ValidationException $e) {
+            Log::error($e->getMessage());
             DB::rollBack();
             return Response::json(array_values($e->errors())[0], 422);
         } catch (Exception $e) {
+            Log::error($e->getMessage());
             DB::rollBack();
             return Response::json([
                 'message' => __('default.an_error_occured')
@@ -83,9 +88,10 @@ class WishlistController extends Controller
      */
     public function update(WishlistRequest $request): JsonResponse
     {
+        $data = $request->validated();
+
         DB::beginTransaction();
         try {
-            $data = $request->validated();
             $data['user_id'] = Auth::user()->getAuthIdentifier();
             $items = $data['items'];
 

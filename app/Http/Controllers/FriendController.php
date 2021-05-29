@@ -20,7 +20,7 @@ class FriendController extends Controller
     public function index(): View
     {
         $friends = Auth::user()->getFriends()->map(function ($friend) {
-            $friend->wishlists = $friend->wishlists;
+            $friend->wishlists = $friend->wishlists()->where('status', '<>', 'created')->get();
             return $friend;
         });
         $requests = Auth::user()->getFriendRequests()->map(function ($request) {

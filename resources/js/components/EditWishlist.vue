@@ -143,7 +143,9 @@ export default {
             translations = window.translations,
             routes = window.routes,
             he = window.he,
-            newItem = ref(new Item()),
+            newItem = ref(new Item({
+                temp_id: Math.floor(Math.random() * -1000000)
+            })),
             showModal = ref(false),
             openedItem = ref(new Item())
 
@@ -163,7 +165,9 @@ export default {
                 })
             } else {
                 wishlist.value.items.push(newItem.value)
-                newItem.value = new Item()
+                newItem.value = new Item({
+                    temp_id: Math.floor(Math.random() * -1000000)
+                })
             }
         }
 
@@ -196,7 +200,7 @@ export default {
                         let message
 
                         if (error.response.status === 422) {
-                            message = error.response.data[0]
+                            message = Object.values(error.response.data.errors)[0][0]
                         } else {
                             message = error.response.data.message
                         }
@@ -226,7 +230,7 @@ export default {
                         let message
 
                         if (error.response.status === 422) {
-                            message = error.response.data[0]
+                            message = Object.values(error.response.data.errors)[0][0]
                         } else {
                             message = error.response.data.message
                         }
@@ -264,7 +268,12 @@ export default {
         }
 
         function removeItem(item) {
-            let index = wishlist.value.items.findIndex(data => data.id === item.id)
+            let index
+
+            if (item.id)
+                index = wishlist.value.items.findIndex(data => data.id === item.id)
+            else
+                index = wishlist.value.items.findIndex(data => data.temp_id === item.temp_id)
 
             if (index !== -1)
                 wishlist.value.items.splice(index, 1)

@@ -41,6 +41,7 @@ export default {
         function share() {
             Swal.fire({
                 title: translations.wishlists.publish_question.replace(':type:', translations.wishlists.sharing_types[wishlist.value.sharing_type]),
+                html: "<b class='text-red-700'>" + translations.wishlists.publish_subquestion + "</b>",
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: translations.wishlists.create_buttons.yes,

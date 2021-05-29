@@ -80,6 +80,8 @@
                     update_password: '{{ __('user.update_password') }}',
                 },
                 wishlists: {
+                    already_reserved: '{{ __('wishlists.already_reserved') }}',
+                    available: '{{ __('wishlists.available') }}',
                     category: '{{ __('wishlists.category') }}',
                     categories: {
                         anniversary: '{{ __('wishlists.categories.anniversary') }}',
@@ -107,6 +109,7 @@
                     share: '{{ __('wishlists.share') }}',
                     publish: '{{ __('wishlists.publish') }}',
                     publish_question: '{{ __('wishlists.publish_question') }}',
+                    publish_subquestion: '{{ __('wishlists.publish_subquestion') }}',
                     published_message: '{{ __('wishlists.published_message') }}',
                     sharing_type: '{{ __('wishlists.sharing_type') }}',
                     sharing_types: {

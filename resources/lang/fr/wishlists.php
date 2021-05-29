@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'already_reserved' => 'Déjà réservé',
+    'available' => 'Disponible',
     'category' => 'Catégorie',
     'categories' => [
         'anniversary' => 'Anniversaire',
@@ -31,6 +33,7 @@ return [
     'share' => 'Partager',
     'publish' => 'Publier',
     'publish_question' => 'Veux-tu publier la liste ? Type de partage: :type:.',
+    'publish_subquestion' => 'Après ça, tu ne pourras pas modifier ou supprimer des objets ajoutés précédemment.',
     'published_message' => 'Ta liste a déjà été publiée, tu ne pourras pas modifier ou supprimer des objets ajoutés précédemment.',
     'published_successful' => 'Liste publiée avec succès.',
     'sharing_type' => 'Type de partage',

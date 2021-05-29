@@ -30,4 +30,21 @@ class UserRequest extends FormRequest
             'password' => ['nullable', 'string', 'min:6', 'confirmed']
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'nickname.required' => __('validation.nickname.required'),
+            'nickname.unique' => __('validation.nickname.unique'),
+
+            'picture.image' => __('validation.picture.image'),
+
+            'password.confirmed' => __('validation.password.confirmed'),
+            'password.min' => __('validation.password.min'),
+            'password.string' => __('validation.password.string')
+        ];
+    }
 }

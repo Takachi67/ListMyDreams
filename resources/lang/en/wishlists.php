@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'already_reserved' => 'Already reserved',
+    'available' => 'Available',
     'category' => 'Category',
     'categories' => [
         'anniversary' => 'Anniversary',
@@ -31,6 +33,7 @@ return [
     'share' => 'Share',
     'publish' => 'Publish',
     'publish_question' => 'Do you want to publish the list ? :type: will be able to see your list.',
+    'publish_subquestion' => 'After that, you will not be able to remove or update items added previously.',
     'published_message' => 'Your list has already been published, you can\'t remove or update items added previously.',
     'published_successful' => 'Your list has successfully been published.',
     'sharing_type' => 'Sharing type',

@@ -34,8 +34,14 @@
         <ul class="paper" :style="{ '--color': wishlist.border_color }">
             <li class="item" @click="openModal(item)" v-for="item in wishlist.items" :style="{ borderBottom: '1px dotted ' + wishlist.line_color, color: wishlist.text_color }">
                 {{ item.name }}
-                <i class="float-right mr-2 text-green-600" v-if="item.is_reserved && canEdit" v-html="checkIcon"></i>
-                <i class="float-right mr-2 text-red-600" v-if="!item.is_reserved && canEdit" v-html="clockIcon"></i>
+                <div v-if="item.is_reserved && canEdit" class="flex items-center float-right mr-2">
+                    <span class="text-red-600 mr-2 mt-0.5 flex items-center">{{ translations.wishlists.already_reserved }}</span>
+                    <i class="text-red-600" v-html="clockIcon"></i>
+                </div>
+                <div v-if="!item.is_reserved && canEdit" class="flex items-center float-right mr-2">
+                    <span class="text-green-600 mr-2 mt-0.5 flex items-center">{{ translations.wishlists.available }}</span>
+                    <i class="text-green-600" v-html="checkIcon"></i>
+                </div>
             </li>
             <li v-for="i in [...Array(10 - wishlist.items.length).keys()]" :style="{ borderBottom: '1px dotted ' + wishlist.line_color, color: wishlist.text_color }"></li>
         </ul>

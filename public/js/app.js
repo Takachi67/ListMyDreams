@@ -16676,7 +16676,9 @@ __webpack_require__.r(__webpack_exports__);
         translations = window.translations,
         routes = window.routes,
         he = window.he,
-        newItem = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(new _models_Item__WEBPACK_IMPORTED_MODULE_1__.default()),
+        newItem = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(new _models_Item__WEBPACK_IMPORTED_MODULE_1__.default({
+      temp_id: Math.floor(Math.random() * -1000000)
+    })),
         showModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false),
         openedItem = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(new _models_Item__WEBPACK_IMPORTED_MODULE_1__.default());
     var trashIcon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
@@ -16696,7 +16698,9 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         wishlist.value.items.push(newItem.value);
-        newItem.value = new _models_Item__WEBPACK_IMPORTED_MODULE_1__.default();
+        newItem.value = new _models_Item__WEBPACK_IMPORTED_MODULE_1__.default({
+          temp_id: Math.floor(Math.random() * -1000000)
+        });
       }
     }
 
@@ -16729,7 +16733,7 @@ __webpack_require__.r(__webpack_exports__);
             var message;
 
             if (error.response.status === 422) {
-              message = error.response.data[0];
+              message = Object.values(error.response.data.errors)[0][0];
             } else {
               message = error.response.data.message;
             }
@@ -16759,7 +16763,7 @@ __webpack_require__.r(__webpack_exports__);
             var message;
 
             if (error.response.status === 422) {
-              message = error.response.data[0];
+              message = Object.values(error.response.data.errors)[0][0];
             } else {
               message = error.response.data.message;
             }
@@ -16797,8 +16801,11 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     function removeItem(item) {
-      var index = wishlist.value.items.findIndex(function (data) {
+      var index;
+      if (item.id) index = wishlist.value.items.findIndex(function (data) {
         return data.id === item.id;
+      });else index = wishlist.value.items.findIndex(function (data) {
+        return data.temp_id === item.temp_id;
       });
       if (index !== -1) wishlist.value.items.splice(index, 1);
     }
@@ -16948,6 +16955,7 @@ __webpack_require__.r(__webpack_exports__);
     function share() {
       sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
         title: translations.wishlists.publish_question.replace(':type:', translations.wishlists.sharing_types[wishlist.value.sharing_type]),
+        html: "<b class='text-red-700'>" + translations.wishlists.publish_subquestion + "</b>",
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: translations.wishlists.create_buttons.yes,
@@ -18932,6 +18940,20 @@ var _hoisted_11 = {
 var _hoisted_12 = {
   "class": "mt-6 mb-6 ml-4 mr-4 md:ml-20 md:mr-20 relative"
 };
+var _hoisted_13 = {
+  key: 0,
+  "class": "flex items-center float-right mr-2"
+};
+var _hoisted_14 = {
+  "class": "text-red-600 mr-2 mt-0.5 flex items-center"
+};
+var _hoisted_15 = {
+  key: 1,
+  "class": "flex items-center float-right mr-2"
+};
+var _hoisted_16 = {
+  "class": "text-green-600 mr-2 mt-0.5 flex items-center"
+};
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
@@ -19025,19 +19047,21 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       }
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name) + " ", 1
     /* TEXT */
-    ), item.is_reserved && $props.canEdit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("i", {
-      key: 0,
-      "class": "float-right mr-2 text-green-600",
-      innerHTML: $setup.checkIcon
-    }, null, 8
-    /* PROPS */
-    , ["innerHTML"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !item.is_reserved && $props.canEdit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("i", {
-      key: 1,
-      "class": "float-right mr-2 text-red-600",
+    ), item.is_reserved && $props.canEdit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.translations.wishlists.already_reserved), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+      "class": "text-red-600",
       innerHTML: $setup.clockIcon
     }, null, 8
     /* PROPS */
-    , ["innerHTML"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 12
+    , ["innerHTML"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !item.is_reserved && $props.canEdit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.translations.wishlists.available), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+      "class": "text-green-600",
+      innerHTML: $setup.checkIcon
+    }, null, 8
+    /* PROPS */
+    , ["innerHTML"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 12
     /* STYLE, PROPS */
     , ["onClick"]);
   }), 256

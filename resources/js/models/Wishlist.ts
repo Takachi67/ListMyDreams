@@ -2,6 +2,7 @@ import Item from './Item'
 
 export default class Wishlist {
     public id?: Number
+    public temp_id?: Number
     public name: String = ''
     public category: String = 'anniversary'
     public sharing_type: String = 'friends'

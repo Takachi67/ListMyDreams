@@ -35,6 +35,21 @@ class LoginRequest extends FormRequest
     }
 
     /**
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'email.email' => __('validation.email.email'),
+            'email.required' => __('validation.email.required'),
+            'email.string' => __('validation.email.unique'),
+
+            'password.required' => __('validation.password.required'),
+            'password.string' => __('validation.password.string')
+        ];
+    }
+
+    /**
      * Attempt to authenticate the request's credentials.
      *
      * @return void
