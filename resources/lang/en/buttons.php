@@ -4,5 +4,6 @@ return [
     'home' => 'Home',
     'my_friends' => 'My friends',
     'my_lists' => 'My lists',
-    'my_profile' => 'My profile'
+    'my_profile' => 'My profile',
+    'my_reservations' => 'My reservations'
 ];

@@ -15,11 +15,12 @@
                             <p class="text-xl" v-if="openedItem.comment"><b>{{ translations.items.comment }}</b>: {{ openedItem.comment }}</p>
                         </slot>
                     </div>
-                    <div class="modal-footer flex justify-between">
+                    <div class="modal-footer flex justify-between items-center">
                         <slot name="footer">
                             <button class="btn btn-primary" @click="closeModal">{{ translations.default.close }}</button>
                             <button class="btn btn-secondary" @click="unreserve(openedItem.id)" v-if="wishlist.status !== 'expired' && openedItem.is_reserved && canEdit && user && openedItem.reserved_user_id === user.id">{{ translations.items.unreserve }}</button>
                             <button class="btn btn-tertiary" @click="reserve(openedItem.id)" v-if="wishlist.status !== 'expired' && !openedItem.is_reserved && canEdit && user">{{ translations.items.reserve }}</button>
+                            <span class="text-red-700 mt-0.5" v-if="wishlist.status === 'expired' && canEdit && user">{{ he.decode(translations.wishlists.expired_message) }}</span>
                         </slot>
                     </div>
                 </div>

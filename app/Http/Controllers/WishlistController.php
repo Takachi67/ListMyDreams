@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\WishlistRequest;
 use App\Models\Item;
+use App\Models\Reservation;
 use App\Models\User;
 use App\Models\Wishlist;
 use Exception;
@@ -249,6 +250,11 @@ class WishlistController extends Controller
             'reserved_user_id' => Auth::user()->getAuthIdentifier()
         ]);
 
+        Reservation::query()
+            ->create([
+                'item_id' => $item->id
+            ]);
+
         return Response::json($item);
     }
 
@@ -273,6 +279,11 @@ class WishlistController extends Controller
             'is_reserved' => false,
             'reserved_user_id' => null
         ]);
+
+        Reservation::query()
+            ->where([
+                'item_id' => $item->id
+            ])->delete();
 
         return Response::json($item);
     }

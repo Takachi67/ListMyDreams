@@ -19,7 +19,8 @@
                     home: '{{ __('buttons.home') }}',
                     myFriends: '{{ __('buttons.my_friends') }}',
                     myLists: '{{ __('buttons.my_lists') }}',
-                    myProfile: '{{ __('buttons.my_profile') }}'
+                    myProfile: '{{ __('buttons.my_profile') }}',
+                    myReservations: '{{ __('buttons.my_reservations') }}'
                 },
                 default: {
                     close: '{{ __('default.close') }}'
@@ -70,6 +71,22 @@
                 notifications: {
                     none: '{{ __('notifications.none') }}'
                 },
+                questions: {
+                    answer: '{{ __('questions.answer') }}',
+                    answer_received: '{{ __('questions.answer_received') }}',
+                    answer_saved: '{{ __('questions.answer_saved') }}',
+                    new_question: '{{ __('questions.new_question') }}',
+                    none: '{{ __('questions.none') }}',
+                    question: '{{ __('questions.question') }}'
+                },
+                reservations: {
+                    bought: '{{ __('reservations.bought') }}',
+                    notes: '{{ __('reservations.notes') }}',
+                    notes_saved: '{{ __('reservations.notes_saved') }}',
+                    not_bought: '{{ __('reservations.not_bought') }}',
+                    save_notes: '{{ __('reservations.save_notes') }}',
+                    where_to_find: '{{ __('reservations.where_to_find') }}'
+                },
                 user: {
                     cancel_password: '{{ __('user.cancel_password') }}',
                     email: '{{ __('user.email') }}',
@@ -117,6 +134,7 @@
                         with_link: '{{ __('wishlists.sharing_types.with_link') }}'
                     },
                     publishing_warning: '{{ __('wishlists.publishing_warning') }}',
+                    unreserve_question: '{{ __('wishlists.unreserve_question') }}',
                     update_list: '{{ __('wishlists.update_list') }}',
                     update_question: '{{ __('wishlists.update_question') }}'
                 }
@@ -139,6 +157,16 @@
                 },
                 notifications: {
                     see: '{{ route('notifications.see') }}'
+                },
+                questions: {
+                    ask: '{{ route('questions.ask') }}',
+                    answer: '{{ route('questions.answer') }}',
+                    showAnswer: '{{ route('questions.showAnswer') }}'
+                },
+                reservations: {
+                    hasBought: '{{ route('reservations.hasBought') }}',
+                    index: '{{ route('reservations.index') }}',
+                    saveNotes: '{{ route('reservations.saveNotes') }}'
                 },
                 users: {
                     profile: '{{ route('users.profile') }}'
@@ -166,6 +194,9 @@
                 :user="{{ json_encode(auth()->user()) }}"
                 @isset($notifications)
                 :default-notifications="{{ json_encode($notifications) }}"
+                @endisset
+                @isset($questions)
+                :default-questions="{{ json_encode($questions) }}"
                 @endisset
             ></navigation>
 

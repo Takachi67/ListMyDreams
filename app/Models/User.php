@@ -65,4 +65,16 @@ class User extends Authenticatable implements MustVerifyEmail
             ->where('has_seen', false)
             ->get();
     }
+
+    /**
+     * @return NotificationCollection|array
+     */
+    public function getQuestions(): NotificationCollection|array
+    {
+        return Question::query()
+            ->with('wishlist', 'user', 'question')
+            ->where('target_id', $this->id)
+            ->where('has_answered', false)
+            ->get();
+    }
 }

@@ -42,6 +42,7 @@ return [
         'with_link' => 'Users with the link'
     ],
     'publishing_warning' => 'When the list will be published, you\'ll only be able to add items to it. You\'ll not be able to update or remove one of them.',
+    'unreserve_question' => 'Do you want to unreserve :item: in the list ?',
     'update_list' => 'Update list',
     'update_question' => 'Do you want to update the list ?',
     'update_title' => 'Update a list'

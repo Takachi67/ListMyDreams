@@ -37,6 +37,7 @@ class ViewServiceProvider extends ServiceProvider
         ], function ($view) {
             if (Auth::user()) {
                 $view->with('notifications', Auth::user()->getNotifications());
+                $view->with('questions', Auth::user()->getQuestions());
             }
         });
     }

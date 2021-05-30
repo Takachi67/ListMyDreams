@@ -42,6 +42,7 @@ return [
         'with_link' => 'Utilisateurs avec le lien'
     ],
     'publishing_warning' => 'Lorsque la liste sera publiée, tu pourras uniquement ajouter des objets et non pas en modifier/supprimer.',
+    'unreserve_question' => 'Veux-tu retirer ta réservation pour :item: ?',
     'update_list' => 'Mettre à jour la liste',
     'update_question' => 'Veux-tu mettre à jour la liste ?',
     'update_title' => 'Mise à jour de la liste'

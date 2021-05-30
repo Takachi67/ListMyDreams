@@ -7,6 +7,7 @@ import Friend from './components/Friend.vue'
 import Requests from './components/Requests.vue'
 import Messenger from './components/Messenger.vue'
 import Password from './components/Password.vue'
+import WishlistReservations from './components/WishlistReservations.vue'
 
 // @ts-ignore
 window.he = require('he')
@@ -21,6 +22,7 @@ window.onload = () => {
     app.component('Requests', Requests)
     app.component('Messenger', Messenger)
     app.component('Password', Password)
+    app.component('WishlistReservations', WishlistReservations)
     app.mount('#main')
 
     const feather = require('feather-icons')

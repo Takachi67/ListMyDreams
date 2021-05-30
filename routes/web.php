@@ -3,6 +3,8 @@
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +41,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('messenger.send', [MessageController::class, 'send'])->name('messenger.send');
     Route::post('users.update', [UserController::class, 'update'])->name('users.update');
     Route::post('notifications.see', [NotificationController::class, 'see'])->name('notifications.see');
+    Route::resource('reservations', ReservationController::class);
+    Route::post('reservations.hasBought', [ReservationController::class, 'hasBought'])->name('reservations.hasBought');
+    Route::post('reservations.saveNotes', [ReservationController::class, 'saveNotes'])->name('reservations.saveNotes');
+    Route::post('questions.ask', [QuestionController::class, 'ask'])->name('questions.ask');
+    Route::post('questions.answer', [QuestionController::class, 'answer'])->name('questions.answer');
+    Route::post('questions.showAnswer', [QuestionController::class, 'showAnswer'])->name('questions.showAnswer');
 });
 
 Route::get('wishlists/{id}', [WishlistController::class, 'show'])->name('wishlists.show');
