@@ -4,29 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use App\Models\Wishlist;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 
 class QuestionController extends Controller
 {
     /**
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse|\Illuminate\Http\Response
      */
-    public function ask(Request $request): \Illuminate\Http\Response
+    public function ask(Request $request): \Illuminate\Http\Response|JsonResponse
     {
-        $wishlist = Wishlist::query()
-            ->find($request->input('list_id'));
+        try {
+            $wishlist = Wishlist::query()
+                ->find($request->input('list_id'));
 
-        Question::query()
-            ->create([
-                'user_id' => Auth::user()->getAuthIdentifier(),
-                'target_id' => $wishlist->user->id,
-                'list_id' => $wishlist->id,
-                'alias' => array_rand(config('alias')),
-                'message' => $request->input('message')
-            ]);
+            Question::query()
+                ->create([
+                    'user_id' => Auth::user()->getAuthIdentifier(),
+                    'target_id' => $wishlist->user->id,
+                    'list_id' => $wishlist->id,
+                    'alias' => config('alias')[array_rand(config('alias'))],
+                    'message' => $request->input('message')
+                ]);
+        } catch (Exception $e) {
+            return Response::json([
+                'message' => __('default.an_error_occured')
+            ], 500);
+        }
 
         return Response::noContent();
     }

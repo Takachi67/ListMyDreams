@@ -33,7 +33,8 @@ class ViewServiceProvider extends ServiceProvider
             'wishlists.create',
             'wishlists.edit',
             'wishlists.index',
-            'wishlists.show'
+            'wishlists.show',
+            'reservations.index'
         ], function ($view) {
             if (Auth::user()) {
                 $view->with('notifications', Auth::user()->getNotifications());

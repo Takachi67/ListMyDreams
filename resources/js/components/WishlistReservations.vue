@@ -9,7 +9,7 @@
             <li class="flex flex-col md:flex-row justify-between items-center hover:bg-gray-100 p-5" v-for="item in items">
                 <div>
                     <h2><span class="text-xl font-bold">{{ item.name }}</span> ( <a class="underline text-blue-600" :href="routes.wishlist.show + '/' + item.wishlist.id">{{ item.wishlist.name }}</a> )</h2>
-                    <p><span class="font-bold">{{ translations.reservations.where_to_find }}:</span> <a class="underline text-blue-600" :href="item.link">{{ translations.items.link }}</a></p>
+                    <p><span class="font-bold">{{ translations.reservations.where_to_find }}:</span> <a class="underline text-blue-600" target="_blank" :href="item.link">{{ translations.items.link }}</a></p>
                     <p><span class="font-bold">{{ translations.items.priority }}:</span> {{ he.decode(translations.items.priorities[item.priority]) }}</p>
                     <p v-if="item.comment"><span class="font-bold">{{ translations.items.comment }}:</span> {{ item.comment }}</p>
                     <textarea v-model="item.reservation.notes" class="max-h-20 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" :placeholder="translations.reservations.notes"></textarea>

@@ -1,5 +1,30 @@
 <template>
     <transition name="modal">
+        <div class="modal-mask" @click="closeModal" v-show="showQuestionModal">
+            <div class="modal-wrapper">
+                <div class="modal-container md:w-1/2" @click.stop>
+                    <div class="modal-header">
+                        <slot name="header">
+                            <h4 class="text-3xl">{{ translations.questions.question }}</h4>
+                        </slot>
+                    </div>
+                    <div class="modal-body">
+                        <slot name="body">
+                            <div>
+                                <input :placeholder="translations.questions.your_question" type="text" v-on:keyup.enter="sendQuestion" v-model="question" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            </div>
+                        </slot>
+                    </div>
+                    <div class="modal-footer flex justify-end items-center">
+                        <slot name="footer">
+                            <button class="btn btn-primary" @click="sendQuestion">{{ translations.messenger.send }}</button>
+                        </slot>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
+    <transition name="modal">
         <div class="modal-mask" @click="closeModal" v-show="showModal">
             <div class="modal-wrapper">
                 <div class="modal-container md:w-1/2" @click.stop>
@@ -31,6 +56,9 @@
         <i v-html="infoIcon"></i>
         <span class="mt-1 ml-3">{{ he.decode(translations.wishlists.expired_message) }}</span>
     </p>
+    <div class="mt-5 mr-10 md:mr-20 flex justify-end">
+        <button v-if="wishlist.status !== 'expired' && canEdit" @click="openQuestionModal" class="ml-auto btn btn-primary">{{ translations.questions.ask_question }}</button>
+    </div>
     <div class="mt-6 mb-6 ml-4 mr-4 md:ml-20 md:mr-20 relative">
         <ul class="paper" :style="{ '--color': wishlist.border_color }">
             <li class="item" @click="openModal(item)" v-for="item in wishlist.items" :style="{ borderBottom: '1px dotted ' + wishlist.line_color, color: wishlist.text_color }">
@@ -79,7 +107,9 @@ export default {
             routes = window.routes,
             he = window.he,
             showModal = ref(false),
-            openedItem = ref(new Item())
+            showQuestionModal = ref(false),
+            openedItem = ref(new Item()),
+            question = ref('')
 
         const clockIcon = computed(() => {
             return feather.icons['clock'].toSvg()
@@ -94,8 +124,13 @@ export default {
             showModal.value = true
         }
 
+        function openQuestionModal() {
+            showQuestionModal.value = true
+        }
+
         function closeModal() {
             showModal.value = false
+            showQuestionModal.value = false
         }
 
         function reserve(id) {
@@ -148,19 +183,46 @@ export default {
             })
         }
 
+        function sendQuestion() {
+            axios.post(routes.questions.ask, {
+                list_id: wishlist.value.id,
+                message: question.value
+            }).then(() => {
+                question.value = ''
+                closeModal()
+                Swal.fire({
+                    title: translations.items.success,
+                    text: translations.questions.question_sent,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                })
+            }).catch((error) => {
+                closeModal()
+                Swal.fire({
+                    text: error.response.data.message,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
+            })
+        }
+
         return {
             wishlist,
             translations,
             he,
             showModal,
+            showQuestionModal,
             openedItem,
+            question,
             clockIcon,
             checkIcon,
             infoIcon,
             openModal,
+            openQuestionModal,
             closeModal,
             reserve,
-            unreserve
+            unreserve,
+            sendQuestion
         }
     }
 }

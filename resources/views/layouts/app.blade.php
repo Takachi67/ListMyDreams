@@ -75,9 +75,13 @@
                     answer: '{{ __('questions.answer') }}',
                     answer_received: '{{ __('questions.answer_received') }}',
                     answer_saved: '{{ __('questions.answer_saved') }}',
+                    ask_question: '{{ __('questions.ask_question') }}',
                     new_question: '{{ __('questions.new_question') }}',
                     none: '{{ __('questions.none') }}',
-                    question: '{{ __('questions.question') }}'
+                    question: '{{ __('questions.question') }}',
+                    question_is_anonymous: '{{ __('questions.question_is_anonymous') }}',
+                    question_sent: '{{ __('questions.question_sent') }}',
+                    your_question: '{{ __('questions.your_question') }}',
                 },
                 reservations: {
                     bought: '{{ __('reservations.bought') }}',
@@ -212,14 +216,24 @@
                             <img src="/img/logo.png" alt="Logo" class="h-full">
                         </a>
                         <div class="flex justify-around w-28 md:w-48">
-                            <i class="cursor-pointer" data-feather="twitter"></i>
-                            <i class="cursor-pointer" data-feather="instagram"></i>
-                            <i class="cursor-pointer" data-feather="facebook"></i>
+                            <a href="https://twitter.com/WishuWebsite" target="_blank">
+                                <i data-feather="twitter"></i>
+                            </a>
+                            <a href="https://www.instagram.com/wishuwebsite/" target="_blank">
+                                <i data-feather="instagram"></i>
+                            </a>
+                            <a href="https://www.facebook.com/wishuwebsite" target="_blank">
+                                <i data-feather="facebook"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center h-10 md:h-20 ml-4 mr-4 md:ml-24 md:mr-24">
+                <div class="flex justify-between items-center h-10 md:h-20 ml-4 mr-4 md:ml-24 md:mr-24">
                     <span class="text-gray-400" type="submit">© Copyright 2021</span>
+                    <div class="flex items-center">
+                        <a href="/mentions-legales" class="underline mr-10">Mentions légales</a>
+                        <a href="mailto:wishu.contact@gmail.com" class="underline">Contact</a>
+                    </div>
                 </div>
             </footer>
         </div>

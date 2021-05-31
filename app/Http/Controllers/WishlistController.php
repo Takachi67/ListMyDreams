@@ -204,24 +204,20 @@ class WishlistController extends Controller
     public function show(int $id): View
     {
         $wishlist = Wishlist::query()
-            ->with('items', 'messages', 'messages.user')
+            ->with('user', 'items', 'messages', 'messages.user')
             ->find($id);
 
-        if ($wishlist->status !== 'published' && $wishlist->status !== 'expired' && Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
-            abort(403);
-        }
-
-        if ((Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) && ($wishlist->sharing_type === 'friends' && (Auth::guest() || !Auth::user()->isFriendWith(User::find($wishlist->user_id))))) {
+        if ($wishlist->sharing_type === 'friends' && (Auth::guest() || (Auth::user()->getAuthIdentifier() !== $wishlist->user_id && (Auth::user() && !Auth::user()->isFriendWith($wishlist->user))))) {
             abort(403);
         }
 
         $canEdit = false;
 
-        if ($wishlist->sharing_type === 'with_link' && Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
+        if ($wishlist->sharing_type === 'with_link' && Auth::user()->email_verified_at && Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
             $canEdit = true;
         }
 
-        if ($wishlist->sharing_type === 'friends' && Auth::user() && Auth::user()->isFriendWith(User::find($wishlist->user_id)) && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
+        if ($wishlist->sharing_type === 'friends' && Auth::user()->email_verified_at && Auth::user() && Auth::user()->isFriendWith(User::find($wishlist->user_id)) && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
             $canEdit = true;
         }
 

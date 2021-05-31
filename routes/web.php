@@ -24,6 +24,10 @@ Route::get('/', function () {
     return view('dashboard');
 })->name('/');
 
+Route::get('/mentions-legales', function () {
+    return view('legalNotice');
+})->name('/mentions-legales');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('wishlists', WishlistController::class)->except('edit', 'update', 'show');
     Route::get('profile', [UserController::class, 'profile'])->name('users.profile');

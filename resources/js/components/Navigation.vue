@@ -80,6 +80,10 @@
                 <img src="/img/logo.png" alt="Logo" class="h-full">
             </a>
             <div class="flex items-center">
+                <button v-if="user" class="bell-mobile mr-10 relative focus:outline-none" @click="switchQuestions">
+                    <i v-html="questionIcon"></i>
+                    <span class="absolute rounded-full bg-secondary text-white pastille-mobile text-sm">{{ filteredQuestions.length }}</span>
+                </button>
                 <button v-if="user" class="bell-mobile mr-10 relative focus:outline-none" @click="switchNotifications">
                     <i v-html="notificationIcon"></i>
                     <span class="absolute rounded-full bg-secondary text-white pastille-mobile text-sm">{{ filteredNotifications.length }}</span>
@@ -104,6 +108,33 @@
             </li>
             <li class="w-full h-full h-10 bg-white border-blue-100 border" v-else>
                 <a class="block w-full h-full p-5" :href="routes.login">{{ translations.auth.login }}</a>
+            </li>
+        </ul>
+        <ul class="z-10 absolute top-14 right-0 w-full max-h-52 md:w-1/4 border-blue-100 border-t border-b" v-show="showQuestions">
+            <li v-if="filteredQuestions.length === 0" class="w-full h-full h-10 bg-white border-blue-100 border">
+                <span class="block w-full h-full p-5">{{ he.decode(translations.questions.none) }}</span>
+            </li>
+            <li v-for="question in filteredQuestions" class="w-full h-full bg-white border-blue-100 border">
+                <div v-if="question.type === 'question'" class="grid grid-cols-10 flex justify-between items-center cursor-pointer" @click="showInput(question)">
+                    <span class="hover:bg-blue-50 col-span-10 h-full flex items-center p-5"><i class="mr-3" v-html="getQuestionIcon(question.type)"></i> <span class="mt-0.5" v-html="he.decode(translations.questions.new_question.replace(':name:', '<b>' + question.alias + '</b>'))">{{  }}</span></span>
+                </div>
+                <div v-else class="grid grid-cols-10 flex justify-between items-center">
+                    <div class="hover:bg-blue-50 col-span-8 h-full items-center p-5">
+                        <a :href="routes.wishlist.show + '/' + question.wishlist.id" class="flex items-center mb-3">{{ he.decode(translations.questions.answer_received.replace(':user:', question.user.nickname)) }} ( {{ question.wishlist.name }} )</a>
+                        <p><span class="font-bold">{{ translations.questions.question }}:</span> {{ question.question.message }}</p>
+                        <p><span class="font-bold">{{ translations.questions.answer }}:</span> {{ question.message }}</p>
+                    </div>
+                    <button @click="removeAnswer(question)" class="hover:bg-secondary hover:text-white col-span-2 flex justify-center items-center h-full w-full">
+                        <i v-html="removeNotificationIcon"></i>
+                    </button>
+                </div>
+                <div v-show="question.show_input" class="block m-3"><span class="font-bold">{{ translations.questions.question }}:</span> {{ question.message }}</div>
+                <div v-show="question.show_input" class="grid grid-cols-10 flex justify-between items-center">
+                    <span class="hover:bg-blue-50 col-span-8 h-full flex items-center p-3">
+                        <input type="text" v-on:keyup.enter="answer(question)" v-model="question.answer" :placeholder="translations.questions.answer" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    </span>
+                    <button @click="answer(question)" class="col-span-2 btn btn-primary flex justify-center"><i v-html="answerIcon"></i></button>
+                </div>
             </li>
         </ul>
         <ul class="z-10 absolute top-14 right-0 w-full max-h-52 border-blue-100 border-t border-b" v-show="showNotifications">
