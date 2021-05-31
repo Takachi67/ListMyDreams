@@ -33,7 +33,7 @@
             </li>
             <li v-for="question in filteredQuestions" class="w-full h-full bg-white border-blue-100 border">
                 <div v-if="question.type === 'question'" class="grid grid-cols-10 flex justify-between items-center cursor-pointer" @click="showInput(question)">
-                    <span class="hover:bg-blue-50 col-span-10 h-full flex items-center p-5"><i class="mr-3" v-html="getQuestionIcon(question.type)"></i> <span class="mt-0.5" v-html="he.decode(translations.questions.new_question.replace(':name:', '<b>' + question.alias + '</b>'))">{{  }}</span></span>
+                    <span class="hover:bg-blue-50 col-span-10 h-full flex items-center p-5"><i class="mr-3" v-html="getQuestionIcon(question.type)"></i> <span class="mt-0.5" v-html="he.decode(translations.questions.new_question.replace(':name:', '<b>' + question.alias + '</b>'))"></span></span>
                 </div>
                 <div v-else class="grid grid-cols-10 flex justify-between items-center">
                     <div class="hover:bg-blue-50 col-span-8 h-full items-center p-5">
@@ -116,7 +116,7 @@
             </li>
             <li v-for="question in filteredQuestions" class="w-full h-full bg-white border-blue-100 border">
                 <div v-if="question.type === 'question'" class="grid grid-cols-10 flex justify-between items-center cursor-pointer" @click="showInput(question)">
-                    <span class="hover:bg-blue-50 col-span-10 h-full flex items-center p-5"><i class="mr-3" v-html="getQuestionIcon(question.type)"></i> <span class="mt-0.5" v-html="he.decode(translations.questions.new_question.replace(':name:', '<b>' + question.alias + '</b>'))">{{  }}</span></span>
+                    <span class="hover:bg-blue-50 col-span-10 h-full flex items-center p-5"><i class="mr-3" v-html="getQuestionIcon(question.type)"></i> <span class="mt-0.5" v-html="he.decode(translations.questions.new_question.replace(':name:', '<b>' + question.alias + '</b>'))"></span></span>
                 </div>
                 <div v-else class="grid grid-cols-10 flex justify-between items-center">
                     <div class="hover:bg-blue-50 col-span-8 h-full items-center p-5">
