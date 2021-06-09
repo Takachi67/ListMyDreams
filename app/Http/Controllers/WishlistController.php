@@ -207,7 +207,7 @@ class WishlistController extends Controller
             ->with('user', 'items', 'messages', 'messages.user')
             ->find($id);
 
-        if (Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id && $wishlist->status === 'created') {
+        if ((!Auth::user() && $wishlist->status === 'created') || (Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id && $wishlist->status === 'created')) {
             abort(403);
         }
 
