@@ -25,7 +25,9 @@ return [
     'success' => 'Success',
     'successfully_reserved' => 'You successfully reserved :item: in the list !',
     'successfully_unreserved' => 'You successfully unreserved :item: in the list !',
+    'successfully_updated' => 'Item updated successfully !',
     'text_color' => 'Text color',
     'too_late' => 'Too late',
-    'unreserve' => 'Unreserve'
+    'unreserve' => 'Unreserve',
+    'update' => 'Update'
 ];

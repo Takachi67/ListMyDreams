@@ -10,14 +10,31 @@
                     </div>
                     <div class="modal-body">
                         <slot name="body">
-                            <p class="break-all text-xl"><b>{{ translations.items.link }}</b>: <a class="text-blue-600 underline" target="_blank" :href="openedItem.link">{{ openedItem.link }}</a></p>
-                            <p class="text-xl"><b>{{ translations.items.priority }}</b>: {{ he.decode(translations.items.priorities[openedItem.priority]) }}</p>
-                            <p class="text-xl" v-if="openedItem.comment"><b>{{ translations.items.comment }}</b>: {{ openedItem.comment }}</p>
+                            <p class="break-all text-xl">
+                                <b>{{ translations.items.link }}</b><br/>
+                                <input type="text" v-if="wishlist.status !== 'expired' && (!openedItem.id || (openedItem.id && wishlist.status !== 'published'))" v-model="openedItem.link" class="rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" :placeholder="translations.items.link">
+                                <input type="text" v-else :value="openedItem.link" class="disabled:opacity-50 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" :placeholder="translations.items.link" disabled>
+                            </p>
+                            <p class="text-xl mt-2">
+                                <b>{{ translations.items.priority }}</b><br/>
+                                <select name="priority" v-if="wishlist.status !== 'expired' && (!openedItem.id || (openedItem.id && wishlist.status !== 'published'))" v-model="openedItem.priority" class="rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                    <option v-for="(value, key) in translations.items.priorities" :value="key">{{ he.decode(value) }}</option>
+                                </select>
+                                <select name="priority" v-else :value="openedItem.priority" class="disabled:opacity-50 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" disabled>
+                                    <option v-for="(value, key) in translations.items.priorities" :value="key">{{ he.decode(value) }}</option>
+                                </select>
+                            </p>
+                            <p class="text-xl mt-2">
+                                <b>{{ translations.items.comment }}</b><br/>
+                                <textarea name="comment" v-if="wishlist.status !== 'expired' && (!openedItem.id || (openedItem.id && wishlist.status !== 'published'))" v-model="openedItem.comment" class="max-h-36 col-span-2 w-2/3 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" :placeholder="translations.items.comment"></textarea>
+                                <textarea name="comment" v-else :value="openedItem.comment" class="disabled:opacity-50 max-h-36 col-span-2 w-2/3 rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" :placeholder="translations.items.comment" disabled></textarea>
+                            </p>
                         </slot>
                     </div>
                     <div class="modal-footer">
                         <slot name="footer">
                             <button class="btn btn-primary" @click="closeModal">OK</button>
+                            <button v-if="wishlist.status !== 'expired' && openedItem.id && wishlist.status !== 'published'" class="btn btn-secondary ml-3" @click="updateItem">{{ translations.items.update }}</button>
                         </slot>
                     </div>
                 </div>
@@ -181,6 +198,30 @@ export default {
             showModal.value = false
         }
 
+        function updateItem() {
+            axios.post(routes.wishlist.updateItem, openedItem.value).then((response) => {
+                let index = wishlist.value.items.findIndex(item => item.id === openedItem.id)
+
+                if (index !== -1) {
+                    wishlist.value.items[index] = openedItem.value
+                }
+
+                Swal.fire({
+                    text: response.data.message,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                })
+
+                closeModal()
+            }).catch((error) => {
+                Swal.fire({
+                    text: error.response.data.message,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
+            })
+        }
+
         function openPicker(id) {
             document.getElementById(id).click()
         }
@@ -291,6 +332,7 @@ export default {
             addItem,
             openModal,
             closeModal,
+            updateItem,
             openPicker,
             create,
             update,

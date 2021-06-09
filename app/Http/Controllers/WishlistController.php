@@ -207,17 +207,21 @@ class WishlistController extends Controller
             ->with('user', 'items', 'messages', 'messages.user')
             ->find($id);
 
+        if (Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id && $wishlist->status === 'created') {
+            abort(403);
+        }
+
         if ($wishlist->sharing_type === 'friends' && (Auth::guest() || (Auth::user()->getAuthIdentifier() !== $wishlist->user_id && (Auth::user() && !Auth::user()->isFriendWith($wishlist->user))))) {
             abort(403);
         }
 
         $canEdit = false;
 
-        if ($wishlist->sharing_type === 'with_link' && Auth::user()->email_verified_at && Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
+        if ($wishlist->sharing_type === 'with_link' && Auth::user() && Auth::user()->email_verified_at && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
             $canEdit = true;
         }
 
-        if ($wishlist->sharing_type === 'friends' && Auth::user()->email_verified_at && Auth::user() && Auth::user()->isFriendWith(User::find($wishlist->user_id)) && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
+        if ($wishlist->sharing_type === 'friends' && Auth::user() && Auth::user()->email_verified_at && Auth::user()->isFriendWith(User::find($wishlist->user_id)) && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
             $canEdit = true;
         }
 
@@ -284,6 +288,10 @@ class WishlistController extends Controller
         return Response::json($item);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function publish(Request $request): JsonResponse
     {
         try {
@@ -303,6 +311,28 @@ class WishlistController extends Controller
         return Response::json([
             'message' => __('wishlists.published_successful'),
             'wishlist' => $wishlist
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response|JsonResponse
+     */
+    public function updateItem(Request $request): \Illuminate\Http\Response|JsonResponse
+    {
+        $item = Item::query()
+            ->find($request->input('id'));
+
+        try {
+            $item->update($request->all());
+        } catch (Exception $exception) {
+            return Response::json([
+                'message' => __('default.an_error_occured')
+            ], 500);
+        }
+
+        return Response::json([
+            'message' => __('items.successfully_updated')
         ]);
     }
 }

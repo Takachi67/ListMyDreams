@@ -61,7 +61,8 @@
                     successfully_reserved: '{{ __('items.successfully_reserved') }}',
                     successfully_unreserved: '{{ __('items.successfully_unreserved') }}',
                     text_color: '{{ __('items.text_color') }}',
-                    unreserve: '{{ __('items.unreserve') }}'
+                    unreserve: '{{ __('items.unreserve') }}',
+                    update: '{{ __('items.update') }}'
                 },
                 messenger: {
                     discussion: '{{ __('messenger.discussion') }}',
@@ -184,7 +185,8 @@
                     unreserve: '{{ route('wishlists.unreserve') }}',
                     edit: '{{ route('wishlists.edit', '') }}',
                     show: '{{ route('wishlists.show', '') }}',
-                    share: '{{ route('wishlists.share') }}'
+                    share: '{{ route('wishlists.share') }}',
+                    updateItem: '{{ route('wishlists.updateItem') }}'
                 }
             }
         </script>

@@ -38,6 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('wishlists.reserve', [WishlistController::class, 'reserve'])->name('wishlists.reserve');
     Route::post('wishlists.unreserve', [WishlistController::class, 'unreserve'])->name('wishlists.unreserve');
     Route::post('wishlists.publish', [WishlistController::class, 'publish'])->name('wishlists.share');
+    Route::post('wishlists.updateItem', [WishlistController::class, 'updateItem'])->name('wishlists.updateItem');
     Route::post('friends.request', [FriendController::class, 'request'])->name('friends.request');
     Route::post('friends.accept', [FriendController::class, 'accept'])->name('friends.accept');
     Route::post('friends.decline', [FriendController::class, 'decline'])->name('friends.decline');

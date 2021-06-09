@@ -25,7 +25,9 @@ return [
     'success' => 'Succès',
     'successfully_reserved' => 'Tu as réservé :item: dans la liste !',
     'successfully_unreserved' => 'Tu as retiré ta réservation pour :item: !',
+    'successfully_updated' => 'Objet modifié avec succès !',
     'text_color' => 'Couleur de texte',
     'too_late' => 'Trop tard',
-    'unreserve' => 'Retirer réservation'
+    'unreserve' => 'Retirer réservation',
+    'update' => 'Mettre à jour'
 ];
