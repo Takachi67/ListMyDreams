@@ -18514,6 +18514,7 @@ var _hoisted_3 = {
   disabled: ""
 };
 var _hoisted_4 = {
+  key: 2,
   "class": "flex justify-between w-full"
 };
 
@@ -18584,7 +18585,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   /* TEXT */
   )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.wishlist.status === 'published' || $setup.wishlist.status === 'expired' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("button", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.translations.wishlists.publish), 1
   /* TEXT */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sharingbutton Facebook "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.wishlist.status !== 'created' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sharingbutton Facebook "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
     "class": "resp-sharing-button__link",
     href: 'https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwishu.fr/wishlists/' + $props.defaultWishlist.id,
     target: "_blank",
@@ -18600,7 +18601,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
     "aria-label": "Twitter"
   }, [_hoisted_6], 8
   /* PROPS */
-  , ["href"])])]);
+  , ["href"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 });
 
 /***/ }),

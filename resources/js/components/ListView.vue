@@ -7,7 +7,7 @@
         <a class="btn custom-btn-secondary text-center pl-8 pr-8 lg:pl-16 lg:pr-16 pt-3 pb-3" :href="routes.wishlist.edit + '/' + defaultWishlist.id">{{ translations.wishlists.modify }}</a>
         <button v-if="wishlist.status === 'created'" class="btn custom-btn-primary mt-6 mb-6 pl-8 pr-8 lg:pl-16 lg:pr-16 pt-3 pb-3" @click="share">{{ translations.wishlists.publish }}</button>
         <button v-if="wishlist.status === 'published' || wishlist.status === 'expired'" class="disabled:opacity-50 cursor-default custom-btn-primary mt-6 mb-6 pl-8 pr-8 lg:pl-16 lg:pr-16 pt-3 pb-3" disabled>{{ translations.wishlists.publish }}</button>
-        <div class="flex justify-between w-full">
+        <div class="flex justify-between w-full" v-if="wishlist.status !== 'created'">
             <!-- Sharingbutton Facebook -->
             <a class="resp-sharing-button__link" :href="'https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwishu.fr/wishlists/' + defaultWishlist.id"  target="_blank" rel="noopener" aria-label="Facebook">
                 <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--medium"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--circle">
