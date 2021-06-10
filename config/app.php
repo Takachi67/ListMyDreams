@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => 'Wishu',
+    'name' => 'Wishu | Créer et partager des listes | Faites-vous des amis en ligne',
 
     /*
     |--------------------------------------------------------------------------

@@ -6,6 +6,16 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+        <meta name="description" content="Wishu est une plateforme rapide, efficace et gratuite pour créer et partager facilement vos listes avec vos amis!">
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MW4QGY060N"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-MW4QGY060N');
+        </script>
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
