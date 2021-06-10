@@ -217,11 +217,11 @@ class WishlistController extends Controller
 
         $canEdit = false;
 
-        if ($wishlist->sharing_type === 'with_link' && Auth::user() && Auth::user()->email_verified_at && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
+        if ($wishlist->sharing_type === 'with_link' && Auth::user() && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
             $canEdit = true;
         }
 
-        if ($wishlist->sharing_type === 'friends' && Auth::user() && Auth::user()->email_verified_at && Auth::user()->isFriendWith(User::find($wishlist->user_id)) && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
+        if ($wishlist->sharing_type === 'friends' && Auth::user() && Auth::user()->isFriendWith(User::find($wishlist->user_id)) && Auth::user()->getAuthIdentifier() !== $wishlist->user_id) {
             $canEdit = true;
         }
 
